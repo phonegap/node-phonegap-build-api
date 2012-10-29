@@ -2,7 +2,7 @@ describe('phonegap-build-rest-client', function() {
     var api;
 
     beforeEach(function() {
-        api = require('../lib/phonegap-build-rest-client');
+        api = require('../lib/main');
     });
 
     it('should be defined', function() {

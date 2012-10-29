@@ -1,4 +1,4 @@
-var build   = require('../lib/phonegap-build-rest-client'),
+var build   = require('../lib/main'),
     api     = require('../lib/api'),
     request = require('request'),
     user = 'filmaj@apache.org',

@@ -13,7 +13,7 @@
         "api"
     ],
     "preferGlobal": "false",
-    "main": "./lib/phonegap-build-rest-client.js",
+    "main": "./lib/main.js",
     "scripts": {
         "test": "./node_modules/.bin/jasmine-node --color --verbose spec"
     },
