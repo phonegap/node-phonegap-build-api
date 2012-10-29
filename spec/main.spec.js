@@ -1,11 +1,11 @@
-describe('phonegap-build-rest-client', function() {
-    var api;
+var api;
 
+describe('PhoneGap Build REST Client', function() {
     beforeEach(function() {
         api = require('../lib/main');
     });
 
-    it('should be defined', function() {
-        expect(api).toBeDefined();
+    it('should support authentication', function() {
+        expect(api.auth).toEqual(jasmine.any(Function));
     });
 });
