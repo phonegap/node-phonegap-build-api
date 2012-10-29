@@ -1,4 +1,5 @@
 var build   = require('../lib/phonegap-build-rest-client'),
+    api     = require('../lib/api'),
     request = require('request'),
     user = 'filmaj@apache.org',
     password = 'apache';
@@ -35,7 +36,8 @@ describe('auth', function() {
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
-                expect(s).toHaveBeenCalledWith(null, jasmine.any(Object));
+                expect(s).toHaveBeenCalledWith(null, jasmine.any(api));
+                expect(s.calls[0].args[1].token).not.toBeNull();
             });
         });
     });
