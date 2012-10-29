@@ -1,0 +1,35 @@
+{
+    "name": "phonegap-build-rest-client",
+    "description": "RESTful node.js interface to the PhoneGap Build API",
+    "version": "0.0.1",
+    "homepage": "http://github.com/mwbrooks/phonegap-build-rest-client",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/mwbrooks/phonegap-build-rest-client.git"
+    },
+    "keywords": [
+        "phonegap",
+        "phonegap build",
+        "api"
+    ],
+    "preferGlobal": "false",
+    "main": "./lib/phonegap-build-rest-client.js",
+    "scripts": {
+        "test": "./node_modules/.bin/jasmine-node --color --verbose spec"
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "jasmine-node": "1.x.x"
+    },
+    "optionalDependencies": {
+    },
+    "contributors": [{
+        "name": "Michael Brooks",
+        "email": "michael@michaelbrooks.ca",
+        "url": "http://michaelbrooks.ca/"
+    }]
+}
