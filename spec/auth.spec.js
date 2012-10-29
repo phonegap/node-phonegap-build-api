@@ -1,4 +1,4 @@
-var build   = require('../phonegap-build-rest-client'),
+var build   = require('../lib/phonegap-build-rest-client'),
     request = require('request'),
     user = 'filmaj@apache.org',
     password = 'apache';
