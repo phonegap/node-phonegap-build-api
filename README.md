@@ -1,4 +1,5 @@
-# PhoneGap Build REST Client
+# PhoneGap Build REST Client [![Build Status][travis-ci-img]][travis-ci-url]
+
 
 > RESTful node.js interface to the PhoneGap Build API
 
@@ -11,4 +12,7 @@
 
         });
     });
+
+[travis-ci-img]: https://secure.travis-ci.org/mwbrooks/phonegap-build-rest-client.png
+[travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-rest-client
 
