@@ -1,7 +1,7 @@
-var build   = require('../lib/main'),
-    api     = require('../lib/api'),
-    request = require('request'),
-    user = 'filmaj@apache.org',
+var build    = require('../lib/main'),
+    api      = require('../lib/api'),
+    request  = require('request'),
+    username = 'filmaj@apache.org',
     password = 'apache';
 
 describe('auth', function() {
@@ -22,7 +22,7 @@ describe('auth', function() {
         it('should report an error in the callback', function() {
             var s = jasmine.createSpy();
             runs(function() {
-                build.auth(user, 'balls', s);
+                build.auth(username, 'balls', s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
@@ -35,7 +35,7 @@ describe('auth', function() {
         it('should return an API object with a token', function() {
             var s = jasmine.createSpy();
             runs(function() {
-                build.auth(user, password, s);
+                build.auth(username, password, s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
