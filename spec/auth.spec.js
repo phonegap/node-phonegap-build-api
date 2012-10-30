@@ -1,5 +1,5 @@
-var build    = require('../lib/main'),
-    api      = require('../lib/api'),
+var api      = require('../lib/main'),
+    Api      = require('../lib/api'),
     request  = require('request'),
     username = 'filmaj@apache.org',
     password = 'apache';
@@ -9,7 +9,7 @@ describe('auth', function() {
         it('should report an error in the callback', function() {
             var s = jasmine.createSpy();
             runs(function() {
-                build.auth('raoul_duke@fearandloathing.com', 'balls', s);
+                api.auth('raoul_duke@fearandloathing.com', 'balls', s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
@@ -22,7 +22,7 @@ describe('auth', function() {
         it('should report an error in the callback', function() {
             var s = jasmine.createSpy();
             runs(function() {
-                build.auth(username, 'balls', s);
+                api.auth(username, 'balls', s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
@@ -35,11 +35,11 @@ describe('auth', function() {
         it('should return an API object with a token', function() {
             var s = jasmine.createSpy();
             runs(function() {
-                build.auth(username, password, s);
+                api.auth(username, password, s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
-                expect(s).toHaveBeenCalledWith(null, jasmine.any(api));
+                expect(s).toHaveBeenCalledWith(null, jasmine.any(Api));
                 expect(s.calls[0].args[1].token).not.toBeNull();
             });
         });
