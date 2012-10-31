@@ -1,11 +1,37 @@
-var api;
+var request = require('request'),
+    api,
+    spy;
 
-describe('PhoneGap Build REST Client', function() {
+describe('client', function() {
     beforeEach(function() {
         api = require('../lib/main');
+        spy = jasmine.createSpy();
+
+        spyOn(request, 'post').andCallFake(function(options, callback) {
+            callback({}, { 'statusCode': 200 }, '{}');
+        });
     });
 
-    it('should support authentication', function() {
-        expect(api.auth).toEqual(jasmine.any(Function));
+    describe('auth', function() {
+        it('should exist', function() {
+            expect(api.auth).toEqual(jasmine.any(Function));
+        });
+
+        it('should return an API object', function() {
+            runs(function() {
+                api.auth('link', 'triforce', spy);
+            });
+
+            waitsFor(function() {
+                return spy.wasCalled;
+            }, 'auth callback should be called');
+
+            runs(function() {
+                expect(spy).toHaveBeenCalledWith(
+                    null,
+                    jasmine.any(require('../lib/api'))
+                );
+            });
+        });
     });
 });
