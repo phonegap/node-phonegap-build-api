@@ -1,28 +1,44 @@
-var Api = require('../lib/api'),
+var API = require('../lib/api'),
     api,
     token;
 
-describe('Api', function() {
+describe('API', function() {
     beforeEach(function() {
         token = Math.random().toString();
-        api = new Api({ 'token': token });
+        api = new API({ 'token': token });
     });
 
     describe('token', function() {
-        it('should be set with constructor', function() {
+        it('should be set in constructor', function() {
             expect(api.token).toEqual(token);
         });
 
         it('should throw error when missing', function() {
-            expect(function() {
-                var api = new Api();
-            }).toThrow();
+            expect(function() { var api = new Api(); }).toThrow();
         });
     });
 
-    describe('function', function() {
+    describe('get', function() {
         it('should exist', function() {
-            expect(api).toEqual(jasmine.any(Function));
+            expect(api.get).toEqual(jasmine.any(Function));
+        });
+    });
+
+    describe('post', function() {
+        it('should exist', function() {
+            expect(api.post).toEqual(jasmine.any(Function));
+        });
+    });
+
+    describe('put', function() {
+        it('should exist', function() {
+            expect(api.put).toEqual(jasmine.any(Function));
+        });
+    });
+
+    describe('del', function() {
+        it('should exist', function() {
+            expect(api.del).toEqual(jasmine.any(Function));
         });
     });
 });
