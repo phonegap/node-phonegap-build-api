@@ -51,7 +51,7 @@ describe('auth', function() {
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
-                expect(s).toHaveBeenCalledWith(null, jasmine.any(Api));
+                expect(s).toHaveBeenCalledWith(null, jasmine.any(Function));
                 expect(s.calls[0].args[1].token).not.toBeNull();
             });
         });
