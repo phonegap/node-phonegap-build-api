@@ -1,10 +1,9 @@
 var request = require('request'),
-    api,
+    api = require('../lib/client'),
     spy;
 
 describe('client', function() {
     beforeEach(function() {
-        api = require('../lib/main');
         spy = jasmine.createSpy();
 
         spyOn(request, 'post').andCallFake(function(options, callback) {

@@ -1,4 +1,4 @@
-var api      = require('../lib/main'),
+var api      = require('../lib/client'),
     Api      = require('../lib/api'),
     request  = require('request'),
     username = 'filmaj@apache.org', // real username for PhoneGap Build
