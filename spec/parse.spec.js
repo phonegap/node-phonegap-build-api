@@ -43,5 +43,14 @@ describe('parse', function() {
     });
 
     describe('callback', function() {
+        it('should return the callback function', function() {
+            var args = [ '/apps', function() {} ];
+            expect(parse.callback(args)).toEqual(jasmine.any(Function));
+        });
+
+        it('should create a callback when missing', function() {
+            var args = [ '/apps' ];
+            expect(parse.callback(args)).toEqual(jasmine.any(Function));
+        });
     });
 });
