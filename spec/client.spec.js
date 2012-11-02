@@ -28,7 +28,7 @@ describe('client', function() {
             runs(function() {
                 expect(spy).toHaveBeenCalledWith(
                     null,
-                    jasmine.any(Object)
+                    jasmine.any(Function)
                 );
             });
         });

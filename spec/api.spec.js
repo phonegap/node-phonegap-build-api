@@ -1,44 +1,46 @@
-var API = require('../lib/api'),
+var request = require('request'),
+    API = require('../lib/api'),
     api,
-    token;
+    token,
+    spy;
 
 describe('API', function() {
     beforeEach(function() {
         token = Math.random().toString();
         api = new API({ 'token': token });
-    });
+        spy = jasmine.createSpy();
 
-    describe('token', function() {
-        it('should be set in constructor', function() {
-            expect(api.token).toEqual(token);
-        });
-
-        it('should throw error when missing', function() {
-            expect(function() { var api = new Api(); }).toThrow();
+        spyOn(request, 'get').andCallFake(function(options, callback) {
+            callback(null, { 'statusCode': 200 }, '{}');
         });
     });
 
-    describe('get', function() {
-        it('should exist', function() {
-            expect(api.get).toEqual(jasmine.any(Function));
+    describe('property', function() {
+        describe('token', function() {
+            it('should be set by constructor', function() {
+                expect(api.token).toEqual(token);
+            });
+
+            it('should throw error when missing', function() {
+                expect(function() { var api = new Api(); }).toThrow();
+            });
         });
     });
 
-    describe('post', function() {
-        it('should exist', function() {
-            expect(api.post).toEqual(jasmine.any(Function));
+    describe('interface', function() {
+        it('should be a function', function() {
+            expect(api).toEqual(jasmine.any(Function));
+        });
+
+        it('should pass calls to request', function() {
+            api('/apps', spy);
+            expect(spy).toHaveBeenCalled();
         });
     });
 
-    describe('put', function() {
-        it('should exist', function() {
-            expect(api.put).toEqual(jasmine.any(Function));
-        });
-    });
-
-    describe('del', function() {
-        it('should exist', function() {
-            expect(api.del).toEqual(jasmine.any(Function));
+    describe('streaming', function() {
+        it('should support pipe', function() {
+            expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
         });
     });
 });

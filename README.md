@@ -8,15 +8,15 @@
     // Authenticate
     require('phonegap-build-rest-client').auth(username, password, function(e, api) {
 
-        // RESTful access to a resource
+        // Default is GET request
 
-        api('GET /apps/10/icon', function(e, data) {
+        api('/apps/10/icon', function(e, data) {
             console.log(data.location);
         });
 
-        // Easier variables that remain readable
+        // GET request
 
-        api('GET /apps/:id/icon', 10, function(e, data) {
+        api.get('/apps/10/icon', function(e, data) {
             console.log(data.location);
         });
 
