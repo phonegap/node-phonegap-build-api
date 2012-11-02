@@ -1,41 +1,47 @@
-var Helper = require('./helper'),
-    helper;
+var API = require('../lib/api'),
+    api,
+    token;
 
 describe('API', function() {
     beforeEach(function() {
-        helper = new Helper();
+        token = Math.random().toString();
+        api = new API({ 'token': token });
     });
 
     describe('property', function() {
         describe('token', function() {
             it('should be set by constructor', function() {
-                expect(helper.api.token).toEqual(helper.token);
+                expect(api.token).toEqual(token);
             });
 
             it('should throw error when missing', function() {
-                expect(function() {
-                    var API = require('../lib/api');
-                    var api = new API();
-                }).toThrow();
+                expect(function() { api = new API(); }).toThrow();
             });
         });
     });
 
     describe('interface', function() {
         it('should be a function', function() {
-            expect(helper.api).toEqual(jasmine.any(Function));
+            expect(api).toEqual(jasmine.any(Function));
         });
 
-        it('should pass calls to request', function() {
-            helper.api('/apps', helper.spy);
-            expect(helper.spy).toHaveBeenCalled();
+        describe('callback', function() {
+            describe('successful request', function() {
+                it('should not return an error', function(done) {
+                    api('/apps', function(e, data) {
+                        expect(e).toBeNull();
+                        done();
+                    });
+                });
+            });
         });
     });
 
     describe('streaming', function() {
-        it('should support pipe', function() {
-            expect(helper.api('/apps', helper.spy).pipe)
-                .toEqual(jasmine.any(Function));
+        it('should support pipe', function(done) {
+            var spy = jasmine.createSpy();
+            spy.andCallFake(done);
+            expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
         });
     });
 });
