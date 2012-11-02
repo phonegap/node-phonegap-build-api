@@ -18,6 +18,28 @@ describe('API', function() {
                 expect(function() { api = new API(); }).toThrow();
             });
         });
+
+        describe('domain', function() {
+            it('should default to http://build.phoengap.com', function() {
+                expect(api.domain).toEqual('http://build.phonegap.com');
+            });
+
+            it('should be configurable in constructor', function() {
+                api = new API({ 'token': '123', 'domain': 'http://example.com' });
+                expect(api.domain).toEqual('http://example.com');
+            });
+        });
+
+        describe('port', function() {
+            it('should default to 80', function() {
+                expect(api.port).toEqual(80);
+            });
+
+            it('should be configurable in constructor', function() {
+                api = new API({ 'token': '123', 'port': 3000 });
+                expect(api.port).toEqual(3000);
+            });
+        });
     });
 
     describe('interface', function() {
