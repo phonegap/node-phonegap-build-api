@@ -61,6 +61,13 @@ describe('API', function() {
                         done();
                     });
                 });
+
+                it('should return JSON data', function(done) {
+                    api('/apps', function(e, data) {
+                        expect(data).toEqual(jasmine.any(Object));
+                        done();
+                    });
+                });
             });
         });
     });
