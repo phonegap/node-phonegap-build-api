@@ -1,46 +1,41 @@
-var request = require('request'),
-    API = require('../lib/api'),
-    api,
-    token,
-    spy;
+var Helper = require('./helper'),
+    helper;
 
 describe('API', function() {
     beforeEach(function() {
-        token = Math.random().toString();
-        api = new API({ 'token': token });
-        spy = jasmine.createSpy();
-
-        spyOn(request, 'get').andCallFake(function(options, callback) {
-            callback(null, { 'statusCode': 200 }, '{}');
-        });
+        helper = new Helper();
     });
 
     describe('property', function() {
         describe('token', function() {
             it('should be set by constructor', function() {
-                expect(api.token).toEqual(token);
+                expect(helper.api.token).toEqual(helper.token);
             });
 
             it('should throw error when missing', function() {
-                expect(function() { var api = new Api(); }).toThrow();
+                expect(function() {
+                    var API = require('../lib/api');
+                    var api = new API();
+                }).toThrow();
             });
         });
     });
 
     describe('interface', function() {
         it('should be a function', function() {
-            expect(api).toEqual(jasmine.any(Function));
+            expect(helper.api).toEqual(jasmine.any(Function));
         });
 
         it('should pass calls to request', function() {
-            api('/apps', spy);
-            expect(spy).toHaveBeenCalled();
+            helper.api('/apps', helper.spy);
+            expect(helper.spy).toHaveBeenCalled();
         });
     });
 
     describe('streaming', function() {
         it('should support pipe', function() {
-            expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
+            expect(helper.api('/apps', helper.spy).pipe)
+                .toEqual(jasmine.any(Function));
         });
     });
 });
