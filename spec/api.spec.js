@@ -5,7 +5,11 @@ var API = require('../lib/api'),
 describe('API', function() {
     beforeEach(function() {
         token = Math.random().toString();
-        api = new API({ 'token': token });
+        api = new API({
+            'token': token,
+            'domain': 'http://localhost',
+            'port': 3000
+        });
     });
 
     describe('property', function() {
@@ -21,6 +25,7 @@ describe('API', function() {
 
         describe('domain', function() {
             it('should default to http://build.phoengap.com', function() {
+                api = new API({ 'token': '123' });
                 expect(api.domain).toEqual('http://build.phonegap.com');
             });
 
@@ -32,6 +37,7 @@ describe('API', function() {
 
         describe('port', function() {
             it('should default to 80', function() {
+                api = new API({ 'token': '123' });
                 expect(api.port).toEqual(80);
             });
 
