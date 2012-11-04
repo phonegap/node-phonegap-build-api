@@ -153,6 +153,23 @@ describe('API', function() {
         });
     });
 
+    describe('post', function() {
+        it('should be a function', function() {
+            expect(api.post).toEqual(jasmine.any(Function));
+        });
+
+        it('should be passed to api.request', function() {
+            spyOn(api, 'request');
+            api.post('/apps');
+            expect(api.request).toHaveBeenCalled();
+        });
+
+        it('should be a POST request', function() {
+            var request = api.post('/apps');
+            expect(request.method).toEqual('POST');
+        });
+    });
+
     describe('put', function() {
         it('should be a function', function() {
             expect(api.put).toEqual(jasmine.any(Function));
