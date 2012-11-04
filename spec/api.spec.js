@@ -130,4 +130,23 @@ describe('API', function() {
             expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
         });
     });
+
+    describe('put', function() {
+        it('should be a function', function() {
+            expect(api.put).toEqual(jasmine.any(Function));
+        });
+
+        it('should be passed to api.request', function() {
+            spyOn(api, 'request');
+            api.put('/apps');
+            expect(api.request).toHaveBeenCalled();
+        });
+
+        it('should be a PUT request', function() {
+            spyOn(api, 'request');
+            api.put('/apps');
+            expect(api.request.mostRecentCall.args[1].method).toEqual('PUT');
+        });
+    });
+
 });
