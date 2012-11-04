@@ -204,11 +204,10 @@ describe('API', function() {
         });
     });
 
-    describe('streaming', function() {
-        it('should support pipe', function(done) {
+    describe('pipe', function() {
+        it('should be available', function() {
             var spy = jasmine.createSpy();
-            spy.andCallFake(done);
-            expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
+            expect(api('/apps').pipe).toEqual(jasmine.any(Function));
         });
     });
 
