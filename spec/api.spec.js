@@ -177,4 +177,13 @@ describe('API', function() {
             expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
         });
     });
+
+    describe('defaults', function() {
+        it('should map to request.defaults', function() {
+            var request = require('request');
+            spyOn(request, 'defaults');
+            api.defaults();
+            expect(request.defaults).toHaveBeenCalled();
+        });
+    });
 });
