@@ -131,9 +131,8 @@ describe('API', function() {
         });
 
         it('should be a GET request', function() {
-            spyOn(api, 'request');
-            api('/apps');
-            expect(api.request.mostRecentCall.args[1].method).toEqual('GET');
+            var request = api('/apps');
+            expect(request.method).toEqual('GET');
         });
     });
 
@@ -149,9 +148,8 @@ describe('API', function() {
         });
 
         it('should be a PUT request', function() {
-            spyOn(api, 'request');
-            api.put('/apps');
-            expect(api.request.mostRecentCall.args[1].method).toEqual('PUT');
+            var request = api.put('/apps');
+            expect(request.method).toEqual('PUT');
         });
     });
 
