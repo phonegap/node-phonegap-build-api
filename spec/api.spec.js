@@ -53,7 +53,48 @@ describe('API', function() {
             expect(api).toEqual(jasmine.any(Function));
         });
 
+        describe('query', function() {
+            it('should become fully-qualified', function() {
+                var request = api('/apps', jasmine.createSpy());
+                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+            });
+
+            it('should trim leading slashes', function() {
+                var request = api('//apps', jasmine.createSpy());
+                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+            });
+
+            it('should trim leading whitespace', function() {
+                var request = api('  /apps', jasmine.createSpy());
+                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+            });
+
+            it('should trim trailing slashes', function() {
+                var request = api('/apps//', jasmine.createSpy());
+                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+            });
+
+            it('should trim trailing whitespace', function() {
+                var request = api('/apps//', jasmine.createSpy());
+                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+            });
+
+            it('should do full trim', function() {
+                var request = api('  ///apps//  ', jasmine.createSpy());
+                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+            });
+
+            it('should add leading slash when missing', function() {
+                var request = api('apps', jasmine.createSpy());
+                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+            });
+        });
+
         describe('callback', function() {
+            it('should not be required', function() {
+                expect(function() { api('/apps'); }).not.toThrow();
+            });
+
             describe('successful request', function() {
                 it('should not return an error', function(done) {
                     api('/apps', function(e, data) {
@@ -65,6 +106,16 @@ describe('API', function() {
                 it('should return JSON data', function(done) {
                     api('/apps', function(e, data) {
                         expect(data).toEqual(jasmine.any(Object));
+                        done();
+                    });
+                });
+            });
+
+            describe('failed request', function() {
+                it('should return an error', function(done) {
+                    api.port = '1983' + Math.floor(Math.random() * 10);
+                    api('/apps', function(e, data) {
+                        expect(e).toEqual(jasmine.any(Error));
                         done();
                     });
                 });
