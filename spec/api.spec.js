@@ -187,6 +187,23 @@ describe('API', function() {
         });
     });
 
+    describe('del', function() {
+        it('should be a function', function() {
+            expect(api.del).toEqual(jasmine.any(Function));
+        });
+
+        it('should be passed to api.request', function() {
+            spyOn(api, 'request');
+            api.del('/apps');
+            expect(api.request).toHaveBeenCalled();
+        });
+
+        it('should be a DELETE request', function() {
+            var request = api.del('/apps');
+            expect(request.method).toEqual('DELETE');
+        });
+    });
+
     describe('streaming', function() {
         it('should support pipe', function(done) {
             var spy = jasmine.createSpy();
