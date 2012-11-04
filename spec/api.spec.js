@@ -48,11 +48,7 @@ describe('API', function() {
         });
     });
 
-    describe('interface', function() {
-        it('should be a function', function() {
-            expect(api).toEqual(jasmine.any(Function));
-        });
-
+    describe('request', function() {
         describe('query', function() {
             it('should become fully-qualified', function() {
                 var request = api('/apps', jasmine.createSpy());
@@ -128,6 +124,24 @@ describe('API', function() {
             var spy = jasmine.createSpy();
             spy.andCallFake(done);
             expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
+        });
+    });
+
+    describe('()', function() {
+        it('should be a function', function() {
+            expect(api).toEqual(jasmine.any(Function));
+        });
+
+        it('should be passed to api.request', function() {
+            spyOn(api, 'request');
+            api('/apps');
+            expect(api.request).toHaveBeenCalled();
+        });
+
+        it('should be a GET request', function() {
+            spyOn(api, 'request');
+            api('/apps');
+            expect(api.request.mostRecentCall.args[1].method).toEqual('GET');
         });
     });
 
