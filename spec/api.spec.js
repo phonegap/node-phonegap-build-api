@@ -136,6 +136,23 @@ describe('API', function() {
         });
     });
 
+    describe('get', function() {
+        it('should be a function', function() {
+            expect(api.get).toEqual(jasmine.any(Function));
+        });
+
+        it('should be passed to api.request', function() {
+            spyOn(api, 'request');
+            api.get('/apps');
+            expect(api.request).toHaveBeenCalled();
+        });
+
+        it('should be a GET request', function() {
+            var request = api.get('/apps');
+            expect(request.method).toEqual('GET');
+        });
+    });
+
     describe('put', function() {
         it('should be a function', function() {
             expect(api.put).toEqual(jasmine.any(Function));
