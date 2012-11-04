@@ -119,14 +119,6 @@ describe('API', function() {
         });
     });
 
-    describe('streaming', function() {
-        it('should support pipe', function(done) {
-            var spy = jasmine.createSpy();
-            spy.andCallFake(done);
-            expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
-        });
-    });
-
     describe('()', function() {
         it('should be a function', function() {
             expect(api).toEqual(jasmine.any(Function));
@@ -163,4 +155,11 @@ describe('API', function() {
         });
     });
 
+    describe('streaming', function() {
+        it('should support pipe', function(done) {
+            var spy = jasmine.createSpy();
+            spy.andCallFake(done);
+            expect(api('/apps', spy).pipe).toEqual(jasmine.any(Function));
+        });
+    });
 });
