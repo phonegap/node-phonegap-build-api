@@ -55,33 +55,8 @@ describe('API', function() {
                 expect(request.uri.href).toEqual('http://localhost:3000/apps');
             });
 
-            it('should trim leading slashes', function() {
-                var request = api('//apps', jasmine.createSpy());
-                expect(request.uri.href).toEqual('http://localhost:3000/apps');
-            });
-
-            it('should trim leading whitespace', function() {
-                var request = api('  /apps', jasmine.createSpy());
-                expect(request.uri.href).toEqual('http://localhost:3000/apps');
-            });
-
-            it('should trim trailing slashes', function() {
-                var request = api('/apps//', jasmine.createSpy());
-                expect(request.uri.href).toEqual('http://localhost:3000/apps');
-            });
-
-            it('should trim trailing whitespace', function() {
-                var request = api('/apps//', jasmine.createSpy());
-                expect(request.uri.href).toEqual('http://localhost:3000/apps');
-            });
-
-            it('should do full trim', function() {
+            it('should be trimmed', function() {
                 var request = api('  ///apps//  ', jasmine.createSpy());
-                expect(request.uri.href).toEqual('http://localhost:3000/apps');
-            });
-
-            it('should add leading slash when missing', function() {
-                var request = api('apps', jasmine.createSpy());
                 expect(request.uri.href).toEqual('http://localhost:3000/apps');
             });
         });
