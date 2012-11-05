@@ -2,17 +2,17 @@
 
 > Node.js REST Client for the PhoneGap Build API
 
-## API
-
-### Overview
+## Overview
 
 The intention is to simplfy authentication and requests to the
 [PhoneGap Build REST API][build-api-docs] for node.js clients.
 
-The `phonegap-build-rest-js` library is little more than a convenience wrapper
+In many ways, this library is little more than a convenience wrapper
 for [mikeal's][github-mikeal] [request][github-request] library. You can expect
-that all of _request's_ functionality are available to the `API` object returned
-by `client.auth();`.
+that all of [request's][github-request] functionality to be available to the
+`API` object returned by `client.auth();`.
+
+## API
 
 ### Authentication
 
