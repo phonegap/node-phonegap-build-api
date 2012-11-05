@@ -18,7 +18,7 @@ describe('client', function() {
 
         it('should return an API object', function() {
             runs(function() {
-                api.auth('link', 'triforce', spy);
+                api.auth({ username:'link', password:'triforce' }, spy);
             });
 
             waitsFor(function() {

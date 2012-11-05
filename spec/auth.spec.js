@@ -13,7 +13,7 @@ describe('auth', function() {
             });
 
             runs(function() {
-                api.auth('raoul_duke@fearandloathing.com', 'balls', s);
+                api.auth({ username: 'raoul_duke@fearandloathing.com', password: 'balls' }, s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
@@ -30,7 +30,7 @@ describe('auth', function() {
             });
 
             runs(function() {
-                api.auth(username, 'balls', s);
+                api.auth({ username: username, password: 'balls' }, s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {
@@ -47,7 +47,7 @@ describe('auth', function() {
             });
 
             runs(function() {
-                api.auth(username, password, s);
+                api.auth({ username: username, password: password }, s);
             });
             waitsFor(function() { return s.wasCalled; }, 'auth callback');
             runs(function() {

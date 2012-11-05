@@ -19,7 +19,7 @@ that all of [request's][github-request] functionality to be available to the
     var client = require('phonegap-build-rest');
 
     // Authenticate
-    client.auth(username, password, function(e, api) {
+    client.auth({ username: 'zelda', password: 'tr1f0rce' }, function(e, api) {
 
         // GET https://build.phonegap.com/api/v1/me
         api.get('/me', function(e, data) {
@@ -27,6 +27,25 @@ that all of [request's][github-request] functionality to be available to the
         });
 
     });
+
+#### Authentication Options
+
+    var client = require('phonegap-build-rest');
+
+    var options = {
+        username: 'zelda',           // Required
+        password: 'tr1f0rce',        // Required
+        version: 'v1',               // Optional
+        protocol: 'https:',          // Optional
+        host: 'build.phonegap.com',  // Optional
+        port: 80,                    // Optional
+        path: ''                     // Optional
+    };
+
+    client.auth(options, function(e, api) {
+        // ...
+    });
+
 
 ### GET Requests
 
@@ -76,23 +95,6 @@ that all of [request's][github-request] functionality to be available to the
     api.delete('/apps/10', function(e, data) {
         // app 10 is deleted
     });
-
-### Options
-
-    // Set Options
-
-    api.defaults({
-        domain: 'http://build.phonegap.com',
-        port: 80,
-        version: 'v1'
-    });
-
-    // Get Options
-
-    api.defaults('domain');
-    api.defaults('port');
-    api.defaults('version');
-    api.defaults('token');
 
 ## Other Languages
 
