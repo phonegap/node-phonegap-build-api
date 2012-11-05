@@ -97,11 +97,13 @@ all of [requests's][github-request] useful functionality, such as pipes.
 
 ### Java
 
-- [pgbuild-api](https://github.com/hardeep/pgbuild-api) by Hardeep Shoker
+- [pgbuild-api][pgbuild-api] by [Hardeep Shoker][github-hardeep]
 
 [travis-ci-img]: https://secure.travis-ci.org/mwbrooks/phonegap-build-rest-client.png
 [travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-rest-client
 [build-api-docs]: https://build.phonegap.com/docs/api
 [github-mikeal]: https://github.com/mikeal
 [github-request]: https://github.com/mikeal/request
+[pgbuild-api]: https://github.com/hardeep/pgbuild-api
+[github-hardeep]: https://github.com/hardeep
 
