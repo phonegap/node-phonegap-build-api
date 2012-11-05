@@ -2,7 +2,7 @@
 
 ## Get the Source
 
-    $ git clone https://github.com/mwbrooks/phonegap-build-rest-client.git
+    $ git clone https://github.com/mwbrooks/phonegap-build-rest-js.git
 
 ## Install the Dependencies
 

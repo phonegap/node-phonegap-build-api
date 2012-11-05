@@ -1,12 +1,12 @@
-# PhoneGap Build REST Client [![Build Status][travis-ci-img]][travis-ci-url]
+# phonegap-build-rest-js [![Build Status][travis-ci-img]][travis-ci-url]
 
-> Node.js REST interface for the PhoneGap Build API
+> Node.js REST Client for the PhoneGap Build API
 
 ## API
 
 ### Overview
 
-The PhoneGap Build REST Client intends to simplfy authentication and requests
+`phonegap-build-rest-js` intends to simplfy authentication and requests
 to the [PhoneGap Build REST API][build-api-docs].
 
 The library is a wrapper for [mikeal's][github-mikeal] [request][github-request]
@@ -15,7 +15,7 @@ all of [requests's][github-request] useful functionality, such as pipes.
 
 ### Authentication
 
-    var client = require('phonegap-build-rest-client');
+    var client = require('phonegap-build-rest');
 
     // Authenticate
     client.auth(username, password, function(e, api) {
@@ -99,8 +99,8 @@ all of [requests's][github-request] useful functionality, such as pipes.
 
 - [pgbuild-api][pgbuild-api] by [Hardeep Shoker][github-hardeep]
 
-[travis-ci-img]: https://secure.travis-ci.org/mwbrooks/phonegap-build-rest-client.png
-[travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-rest-client
+[travis-ci-img]: https://secure.travis-ci.org/mwbrooks/phonegap-build-rest-js.png
+[travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-rest-js
 [build-api-docs]: https://build.phonegap.com/docs/api
 [github-mikeal]: https://github.com/mikeal
 [github-request]: https://github.com/mikeal/request

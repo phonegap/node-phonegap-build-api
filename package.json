@@ -1,11 +1,11 @@
 {
-    "name": "phonegap-build-rest-client",
-    "description": "RESTful node.js interface to the PhoneGap Build API",
+    "name": "phonegap-build-rest",
+    "description": "REST Client for the PhoneGap Build API",
     "version": "0.0.1",
-    "homepage": "http://github.com/mwbrooks/phonegap-build-rest-client",
+    "homepage": "http://github.com/mwbrooks/phonegap-build-rest-js",
     "repository": {
         "type": "git",
-        "url": "git://github.com/mwbrooks/phonegap-build-rest-client.git"
+        "url": "git://github.com/mwbrooks/phonegap-build-rest-js.git"
     },
     "keywords": [
         "phonegap",
