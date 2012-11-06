@@ -48,17 +48,18 @@ that all of [request's][github-request] functionality to be available to the
 
 ### GET Requests
 
-    // GET https://build.phonegap.com/api/v1/apps
-    // api(...) defaults to GET
 
-    api('/apps', function(e, data) {
+    // GET https://build.phonegap.com/api/v1/apps
+
+    api.get('/apps', function(e, data) {
         console.log(data.apps[0].title);
     });
 
-    // GET https://build.phonegap.com/api/v1/apps
-    // api.get(...) is a convience function
+or use the short-hand syntax:
 
-    api.get('/apps', function(e, data) {
+    // GET https://build.phonegap.com/api/v1/apps
+
+    api('/apps', function(e, data) {
         console.log(data.apps[0].title);
     });
 
@@ -95,11 +96,15 @@ that all of [request's][github-request] functionality to be available to the
         // app 10 is deleted
     });
 
-## Other Languages
+## Alternative Implementations
 
 ### Java
 
 - [pgbuild-api][pgbuild-api] by [Hardeep Shoker][github-hardeep]
+
+### Node.js
+
+- [phonegapbuildapi][github-phonegapbuildapi] by [germallon][github-germallon]
 
 [travis-ci-img]: https://secure.travis-ci.org/mwbrooks/phonegap-build-rest-js.png
 [travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-rest-js
@@ -108,4 +113,6 @@ that all of [request's][github-request] functionality to be available to the
 [github-request]: https://github.com/mikeal/request
 [pgbuild-api]: https://github.com/hardeep/pgbuild-api
 [github-hardeep]: https://github.com/hardeep
+[github-phonegapbuildapi]: https://github.com/germallon/phonegapbuildapi
+[github-germallon]: https://github.com/germallon
 
