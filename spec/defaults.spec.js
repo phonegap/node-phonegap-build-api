@@ -32,8 +32,8 @@ describe('defaults', function() {
     });
 
     describe('port', function() {
-        it('should be "80"', function() {
-            expect(defaults.port).toEqual('80');
+        it('should be "443"', function() {
+            expect(defaults.port).toEqual('443');
         });
     });
 
