@@ -56,25 +56,49 @@ describe('auth', function() {
                 });
             });
         });
+    });
 
-        describe('options', function() {
-            describe('username', function() {
-                it('should be required', function(done) {
-                    options.username = undefined;
-                    client.auth(options, function(e, data) {
-                        expect(e).toEqual(jasmine.any(Error));
-                        done();
-                    });
+    describe('options', function() {
+        beforeEach(function() {
+            // Mock valid auth response
+            spyOn(request, 'post').andCallFake(function(options, callback) {
+                callback({}, { 'statusCode': 200 }, '{"token":"Y9nGxwX7QenyuNXSaEnp"}');
+            });
+        });
+
+        describe('username', function() {
+            it('should be required', function(done) {
+                options.username = undefined;
+                client.auth(options, function(e, data) {
+                    expect(e).toEqual(jasmine.any(Error));
+                    done();
+                });
+            });
+        });
+
+        describe('password', function() {
+            it('should be required', function(done) {
+                options.password = undefined;
+                client.auth(options, function(e, data) {
+                    expect(e).toEqual(jasmine.any(Error));
+                    done();
+                });
+            });
+        });
+
+        describe('version', function() {
+            it('should default to v1', function(done) {
+                client.auth(options, function(e, api) {
+                    expect(api.defaults.version).toEqual('v1');
+                    done();
                 });
             });
 
-            describe('password', function() {
-                it('should be required', function(done) {
-                    options.password = undefined;
-                    client.auth(options, function(e, data) {
-                        expect(e).toEqual(jasmine.any(Error));
-                        done();
-                    });
+            it('should be added to API defaults', function(done) {
+                options.version = 'v0';
+                client.auth(options, function(e, api) {
+                    expect(api.defaults.version).toEqual('v0');
+                    done();
                 });
             });
         });
