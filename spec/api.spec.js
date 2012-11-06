@@ -10,8 +10,7 @@ describe('API', function() {
             'protocol': 'http:',
             'host': 'localhost',
             'port': 3000,
-            'path': '/api/v1',
-            'domain': 'http://localhost'
+            'path': '/api/v1'
         };
         api = new API(options);
     });
