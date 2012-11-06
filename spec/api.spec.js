@@ -10,7 +10,7 @@ describe('API', function() {
             'protocol': 'http:',
             'host': 'localhost',
             'port': 3000,
-            'version': 'v1',
+            'path': '/api/v1',
             'domain': 'http://localhost'
         };
         api = new API(options);
@@ -46,15 +46,8 @@ describe('API', function() {
         });
 
         describe('path', function() {
-            it('should be optional', function() {
-                options.path = undefined;
-                expect(function() { new API(options); }).not.toThrow();
-            });
-        });
-
-        describe('version', function() {
             it('should throw when missing', function() {
-                options.version = undefined;
+                options.path = undefined;
                 expect(function() { new API(options); }).toThrow();
             });
         });
@@ -64,17 +57,17 @@ describe('API', function() {
         describe('query', function() {
             it('should become fully-qualified', function() {
                 var request = api('/apps', jasmine.createSpy());
-                expect(request.uri.href).toMatch('^http://localhost:3000/v1/apps');
+                expect(request.uri.href).toMatch('^http://localhost:3000/api/v1/apps');
             });
 
             it('should be trimmed', function() {
                 var request = api('  ///apps//  ', jasmine.createSpy());
-                expect(request.uri.href).toMatch('^http://localhost:3000/v1/apps');
+                expect(request.uri.href).toMatch('^http://localhost:3000/api/v1/apps');
             });
 
             it('should include auth_token query string', function() {
                 var request = api('  ///apps//  ', jasmine.createSpy());
-                var query = 'http://localhost:3000/v1/apps?auth_token=' + options.token;
+                var query = 'http://localhost:3000/api/v1/apps?auth_token=' + options.token;
                 expect(request.uri.href).toEqual(query);
             });
         });

@@ -13,12 +13,6 @@ describe('defaults', function() {
         });
     });
 
-    describe('version', function() {
-        it('should be "v1"', function() {
-            expect(defaults.version).toEqual('v1');
-        });
-    });
-
     describe('protocol', function() {
         it('should be "https:"', function() {
             expect(defaults.protocol).toEqual('https:');
@@ -38,8 +32,8 @@ describe('defaults', function() {
     });
 
     describe('path', function() {
-        it('should be ""', function() {
-            expect(defaults.path).toEqual('');
+        it('should be "/api/v1"', function() {
+            expect(defaults.path).toEqual('/api/v1');
         });
     });
 });
