@@ -33,13 +33,12 @@ that all of [request's][github-request] functionality to be available to the
     var client = require('phonegap-build-rest');
 
     var options = {
-        username: 'zelda',           // Required
-        password: 'tr1f0rce',        // Required
-        version: 'v1',               // Optional
-        protocol: 'https:',          // Optional
-        host: 'build.phonegap.com',  // Optional
-        port: 80,                    // Optional
-        path: ''                     // Optional
+        username: 'zelda',               // Required
+        password: 'tr1f0rce',            // Required
+        protocol: 'https:',              // Optional
+        host:     'build.phonegap.com',  // Optional
+        port:     80,                    // Optional
+        path:     '/api/v1'              // Optional
     };
 
     client.auth(options, function(e, api) {
