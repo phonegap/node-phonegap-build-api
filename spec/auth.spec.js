@@ -1,9 +1,12 @@
-var client   = require('../lib/client'),
-    request  = require('request'),
+var request = require('request'),
+    Auth    = require('../lib/auth'),
+    defaults = require('../lib/defaults'),
+    auth,
     options;
 
 describe('auth', function() {
     beforeEach(function() {
+        auth = new Auth(defaults);
         options = {
             username: 'zelda',
             password: 'tr1f0rce'
@@ -20,9 +23,9 @@ describe('auth', function() {
 
         describe('user', function() {
             it('should return an error in the callback', function(done) {
-                client.auth(options, function(e, data) {
+                auth(options, function(e, api) {
                     expect(e).toEqual(jasmine.any(Error));
-                    expect(data).toBeNull();
+                    expect(api).toBeNull();
                     done();
                 });
             });
@@ -30,9 +33,9 @@ describe('auth', function() {
 
         describe('password', function() {
             it('should report an error in the callback', function(done) {
-                client.auth(options, function(e, data) {
+                auth(options, function(e, api) {
                     expect(e).toEqual(jasmine.any(Error));
-                    expect(data).toBeNull();
+                    expect(api).toBeNull();
                     done();
                 });
             });
@@ -48,10 +51,11 @@ describe('auth', function() {
         });
 
         describe('username and password', function() {
-            it('should return an API object with a token', function() {
-                client.auth(options, function(e, data) {
+            it('should return an API object', function(done) {
+                auth(options, function(e, api) {
                     expect(e).toBeNull();
-                    expect(data).toEqual(jasmine.any(Function));
+                    expect(api).toEqual(jasmine.any(Function));
+                    done();
                 });
             });
         });
@@ -68,7 +72,7 @@ describe('auth', function() {
         describe('username', function() {
             it('should be required', function(done) {
                 options.username = undefined;
-                client.auth(options, function(e, data) {
+                auth(options, function(e, api) {
                     expect(e).toEqual(jasmine.any(Error));
                     done();
                 });
@@ -78,25 +82,8 @@ describe('auth', function() {
         describe('password', function() {
             it('should be required', function(done) {
                 options.password = undefined;
-                client.auth(options, function(e, data) {
+                auth(options, function(e, api) {
                     expect(e).toEqual(jasmine.any(Error));
-                    done();
-                });
-            });
-        });
-
-        describe('version', function() {
-            it('should default to v1', function(done) {
-                client.auth(options, function(e, api) {
-                    expect(api.defaults.version).toEqual('v1');
-                    done();
-                });
-            });
-
-            it('should be added to API defaults', function(done) {
-                options.version = 'v0';
-                client.auth(options, function(e, api) {
-                    expect(api.defaults.version).toEqual('v0');
                     done();
                 });
             });
