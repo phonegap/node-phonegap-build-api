@@ -64,12 +64,18 @@ describe('API', function() {
         describe('query', function() {
             it('should become fully-qualified', function() {
                 var request = api('/apps', jasmine.createSpy());
-                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+                expect(request.uri.href).toMatch('^http://localhost:3000/apps');
             });
 
             it('should be trimmed', function() {
                 var request = api('  ///apps//  ', jasmine.createSpy());
-                expect(request.uri.href).toEqual('http://localhost:3000/apps');
+                expect(request.uri.href).toMatch('^http://localhost:3000/apps');
+            });
+
+            it('should include auth_token query string', function() {
+                var request = api('  ///apps//  ', jasmine.createSpy());
+                var query = 'http://localhost:3000/apps?auth_token=' + options.token;
+                expect(request.uri.href).toEqual(query);
             });
         });
 
