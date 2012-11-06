@@ -1,58 +1,56 @@
-var api      = require('../lib/client'),
-    Api      = require('../lib/api'),
+var client   = require('../lib/client'),
+    API      = require('../lib/api'),
     request  = require('request'),
-    username = 'filmaj@apache.org', // real username for PhoneGap Build
-    password = 'apache';            // real password for PhoneGap Build
+    options;
 
 describe('auth', function() {
+    beforeEach(function() {
+        options = {
+            username: 'zelda',
+            password: 'tr1f0rce'
+        };
+    });
+
     describe('incorrect username', function() {
-        it('should report an error in the callback', function() {
-            var s = jasmine.createSpy();
+        it('should return an error in the callback', function(done) {
+            // Mock invalid username response
             spyOn(request, 'post').andCallFake(function(options, callback) {
-                callback({}, { 'statusCode': 404 }, '{}');
+                callback({}, { 'statusCode': 401 }, '{"error":"Invalid email or password."}');
             });
 
-            runs(function() {
-                api.auth({ username: 'raoul_duke@fearandloathing.com', password: 'balls' }, s);
-            });
-            waitsFor(function() { return s.wasCalled; }, 'auth callback');
-            runs(function() {
-                expect(s).toHaveBeenCalledWith(jasmine.any(Object), null);
+            client.auth(options, function(e, data) {
+                expect(e).toEqual(jasmine.any(Object));
+                expect(data).toBeNull();
+                done();
             });
         });
     });
 
     describe('incorrect password', function() {
-        it('should report an error in the callback', function() {
-            var s = jasmine.createSpy();
+        it('should report an error in the callback', function(done) {
+            // Mock invalid password response
             spyOn(request, 'post').andCallFake(function(options, callback) {
-                callback({}, { 'statusCode': 404 }, '{}');
+                callback({}, { 'statusCode': 401 }, '{"error":"Invalid email or password."}');
             });
 
-            runs(function() {
-                api.auth({ username: username, password: 'balls' }, s);
-            });
-            waitsFor(function() { return s.wasCalled; }, 'auth callback');
-            runs(function() {
-                expect(s).toHaveBeenCalledWith(jasmine.any(Object), null);
+            client.auth(options, function(e, data) {
+                expect(e).toEqual(jasmine.any(Object));
+                expect(data).toBeNull();
+                done();
             });
         });
     });
 
     describe('correct username and password', function() {
         it('should return an API object with a token', function() {
-            var s = jasmine.createSpy();
+            // Mock valid auth response
             spyOn(request, 'post').andCallFake(function(options, callback) {
-                callback({}, { 'statusCode': 200 }, '{}');
+                callback({}, { 'statusCode': 200 }, '{"token":"Y9nGxwX7QenyuNXSaEnp"}');
             });
 
-            runs(function() {
-                api.auth({ username: username, password: password }, s);
-            });
-            waitsFor(function() { return s.wasCalled; }, 'auth callback');
-            runs(function() {
-                expect(s).toHaveBeenCalledWith(null, jasmine.any(Function));
-                expect(s.calls[0].args[1].token).not.toBeNull();
+            client.auth(options, function(e, data) {
+                expect(e).toBeNull();
+                expect(data).toEqual(jasmine.any(Function));
             });
         });
     });
