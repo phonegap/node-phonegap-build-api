@@ -56,5 +56,27 @@ describe('auth', function() {
                 });
             });
         });
+
+        describe('options', function() {
+            describe('username', function() {
+                it('should be required', function(done) {
+                    options.username = undefined;
+                    client.auth(options, function(e, data) {
+                        expect(e).toEqual(jasmine.any(Error));
+                        done();
+                    });
+                });
+            });
+
+            describe('password', function() {
+                it('should be required', function(done) {
+                    options.password = undefined;
+                    client.auth(options, function(e, data) {
+                        expect(e).toEqual(jasmine.any(Error));
+                        done();
+                    });
+                });
+            });
+        });
     });
 });
