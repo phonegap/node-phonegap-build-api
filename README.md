@@ -4,13 +4,15 @@
 
 ## Overview
 
-The intention is to simplfy authentication and requests to the
+This library simplfies authentication and requests to the
 [PhoneGap Build REST API][build-api-docs] for node.js clients.
 
 In many ways, this library is little more than a convenience wrapper
 for [mikeal's][github-mikeal] [request][github-request] library. You can expect
 that all of [request's][github-request] functionality to be available to the
 `API` object returned by `client.auth();`.
+
+If something is inaccurate or missing, please send a pull request!
 
 ## API
 
