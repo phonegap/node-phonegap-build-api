@@ -1,5 +1,4 @@
 var client   = require('../lib/client'),
-    API      = require('../lib/api'),
     request  = require('request'),
     options;
 
