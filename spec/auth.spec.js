@@ -22,7 +22,7 @@ describe('auth', function() {
         describe('user', function() {
             it('should return an error in the callback', function(done) {
                 client.auth(options, function(e, data) {
-                    expect(e).toEqual(jasmine.any(Object));
+                    expect(e).toEqual(jasmine.any(Error));
                     expect(data).toBeNull();
                     done();
                 });
@@ -32,7 +32,7 @@ describe('auth', function() {
         describe('password', function() {
             it('should report an error in the callback', function(done) {
                 client.auth(options, function(e, data) {
-                    expect(e).toEqual(jasmine.any(Object));
+                    expect(e).toEqual(jasmine.any(Error));
                     expect(data).toBeNull();
                     done();
                 });
