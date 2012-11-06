@@ -7,7 +7,7 @@ describe('client', function() {
         spy = jasmine.createSpy();
 
         spyOn(request, 'post').andCallFake(function(options, callback) {
-            callback({}, { 'statusCode': 200 }, '{}');
+            callback({}, { 'statusCode': 200 }, '{"token":"Y9nGxwX7QenyuNXSaEnp"}');
         });
     });
 

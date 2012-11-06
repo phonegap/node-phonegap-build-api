@@ -1,49 +1,61 @@
 var API = require('../lib/api'),
     api,
+    options,
     token;
 
 describe('API', function() {
     beforeEach(function() {
-        token = Math.random().toString();
-        api = new API({
-            'token': token,
-            'domain': 'http://localhost',
-            'port': 3000
-        });
+        options = {
+            'token': Math.random().toString(),
+            'protocol': 'http:',
+            'host': 'localhost',
+            'port': 3000,
+            'version': 'v1',
+            'domain': 'http://localhost'
+        };
+        api = new API(options);
     });
 
-    describe('property', function() {
+    describe('defaults', function() {
         describe('token', function() {
-            it('should be set by constructor', function() {
-                expect(api.token).toEqual(token);
-            });
-
-            it('should throw error when missing', function() {
-                expect(function() { api = new API(); }).toThrow();
+            it('should throw when missing', function() {
+                options.token = undefined;
+                expect(function() { new API(options); }).toThrow();
             });
         });
 
-        describe('domain', function() {
-            it('should default to http://build.phoengap.com', function() {
-                api = new API({ 'token': '123' });
-                expect(api.domain).toEqual('http://build.phonegap.com');
+        describe('protocol', function() {
+            it('should throw when missing', function() {
+                options.protocol = undefined;
+                expect(function() { new API(options); }).toThrow();
             });
+        });
 
-            it('should be configurable in constructor', function() {
-                api = new API({ 'token': '123', 'domain': 'http://example.com' });
-                expect(api.domain).toEqual('http://example.com');
+        describe('host', function() {
+            it('should throw when missing', function() {
+                options.host = undefined;
+                expect(function() { new API(options); }).toThrow();
             });
         });
 
         describe('port', function() {
-            it('should default to 80', function() {
-                api = new API({ 'token': '123' });
-                expect(api.port).toEqual(80);
+            it('should throw when missing', function() {
+                options.port = undefined;
+                expect(function() { new API(options); }).toThrow();
             });
+        });
 
-            it('should be configurable in constructor', function() {
-                api = new API({ 'token': '123', 'port': 3000 });
-                expect(api.port).toEqual(3000);
+        describe('path', function() {
+            it('should be optional', function() {
+                options.path = undefined;
+                expect(function() { new API(options); }).not.toThrow();
+            });
+        });
+
+        describe('version', function() {
+            it('should throw when missing', function() {
+                options.version = undefined;
+                expect(function() { new API(options); }).toThrow();
             });
         });
     });
