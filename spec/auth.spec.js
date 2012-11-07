@@ -1,12 +1,10 @@
 var request = require('request'),
-    Auth    = require('../lib/auth'),
+    auth    = require('../lib/auth'),
     defaults = require('../lib/defaults'),
-    auth,
     options;
 
 describe('auth', function() {
     beforeEach(function() {
-        auth = new Auth(defaults);
         options = {
             username: 'zelda',
             password: 'tr1f0rce'
