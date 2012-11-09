@@ -12,7 +12,7 @@
         "phonegap build",
         "api"
     ],
-    "preferGlobal": "false",
+    "preferGlobal": false,
     "main": "./lib/client.js",
     "scripts": {
         "test": "./node_modules/.bin/jasmine-node --color --verbose spec"
