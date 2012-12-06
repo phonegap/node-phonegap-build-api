@@ -6,7 +6,7 @@ describe('client', function() {
     beforeEach(function() {
         spy = jasmine.createSpy();
 
-        spyOn(request, 'post').andCallFake(function(options, callback) {
+        spyOn(request, 'post').andCallFake(function(uri, options, callback) {
             callback({}, { 'statusCode': 200 }, '{"token":"Y9nGxwX7QenyuNXSaEnp"}');
         });
     });
@@ -31,6 +31,12 @@ describe('client', function() {
                     jasmine.any(Function)
                 );
             });
+        });
+    });
+
+    describe('API', function() {
+        it('should exist', function() {
+            expect(api.API).toEqual(jasmine.any(Function));
         });
     });
 });
