@@ -14,7 +14,7 @@ describe('auth', function() {
     describe('invalid', function() {
         beforeEach(function() {
             // Mock invalid username or password response
-            spyOn(request, 'post').andCallFake(function(options, callback) {
+            spyOn(request, 'post').andCallFake(function(uri, options, callback) {
                 callback({}, { 'statusCode': 401 }, '{"error":"Invalid email or password."}');
             });
         });
@@ -43,7 +43,7 @@ describe('auth', function() {
     describe('valid', function() {
         beforeEach(function() {
             // Mock valid auth response
-            spyOn(request, 'post').andCallFake(function(options, callback) {
+            spyOn(request, 'post').andCallFake(function(uri, options, callback) {
                 callback({}, { 'statusCode': 200 }, '{"token":"Y9nGxwX7QenyuNXSaEnp"}');
             });
         });
@@ -62,7 +62,7 @@ describe('auth', function() {
     describe('options', function() {
         beforeEach(function() {
             // Mock valid auth response
-            spyOn(request, 'post').andCallFake(function(options, callback) {
+            spyOn(request, 'post').andCallFake(function(uri, options, callback) {
                 callback({}, { 'statusCode': 200 }, '{"token":"Y9nGxwX7QenyuNXSaEnp"}');
             });
         });
