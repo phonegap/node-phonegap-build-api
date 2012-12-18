@@ -5,9 +5,9 @@ var ExpressReporter = function(config) {
     this.app = express();
 
     this.app.all('*', function(req, res) {
-        res.send('{}');
+        var body = (req.url.match(/error/)) ? '{"error":"some error"}' : '{}';
+        res.send(body);
     });
-
 };
 
 ExpressReporter.prototype = {

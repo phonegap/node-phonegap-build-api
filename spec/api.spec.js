@@ -77,17 +77,35 @@ describe('API', function() {
             });
 
             describe('successful request', function() {
-                it('should not return an error', function(done) {
-                    api('/apps', function(e, data) {
-                        expect(e).toBeNull();
-                        done();
+                describe('without error key in response body', function() {
+                    it('should not return an error', function(done) {
+                        api('/apps', function(e, data) {
+                            expect(e).toBeNull();
+                            done();
+                        });
+                    });
+
+                    it('should return JSON data', function(done) {
+                        api('/apps', function(e, data) {
+                            expect(data).toEqual(jasmine.any(Object));
+                            done();
+                        });
                     });
                 });
 
-                it('should return JSON data', function(done) {
-                    api('/apps', function(e, data) {
-                        expect(data).toEqual(jasmine.any(Object));
-                        done();
+                describe('with error key in response body', function() {
+                    it('should return an error', function(done) {
+                        api('/error', function(e, data) {
+                            expect(e).not.toBeNull();
+                            done();
+                        });
+                    });
+
+                    it('should not return JSON data', function(done) {
+                        api('/error', function(e, data) {
+                            expect(data).toBeNull();
+                            done();
+                        });
                     });
                 });
             });
