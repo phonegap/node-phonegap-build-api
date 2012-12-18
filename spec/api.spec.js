@@ -1,4 +1,5 @@
 var API = require('../lib/api'),
+    request = require('../lib/request'),
     api,
     options,
     token;
@@ -72,12 +73,22 @@ describe('API', function() {
         });
 
         describe('callback', function() {
+            beforeEach(function() {
+                spyOn(request, 'send');
+            });
+
             it('should not be required', function() {
                 expect(function() { api('/apps'); }).not.toThrow();
             });
 
             describe('successful request', function() {
                 describe('without error key in response body', function() {
+                    beforeEach(function() {
+                        request.send.andCallFake(function(uri, options, callback) {
+                            callback(null, {'statusCode': 200}, '{"some":"data"}');
+                        });
+                    });
+
                     it('should not return an error', function(done) {
                         api('/apps', function(e, data) {
                             expect(e).toBeNull();
@@ -87,22 +98,29 @@ describe('API', function() {
 
                     it('should return JSON data', function(done) {
                         api('/apps', function(e, data) {
-                            expect(data).toEqual(jasmine.any(Object));
+                            expect(data).toEqual({"some":"data"});
                             done();
                         });
                     });
                 });
 
                 describe('with error key in response body', function() {
+                    beforeEach(function() {
+                        request.send.andCallFake(function(uri, options, callback) {
+                            callback(null, {'statusCode': 200}, '{"error":"msg"}');
+                        });
+                    });
+
                     it('should return an error', function(done) {
-                        api('/error', function(e, data) {
+                        api('/apps', function(e, data) {
                             expect(e).not.toBeNull();
+                            expect(e.message).toEqual('msg');
                             done();
                         });
                     });
 
                     it('should not return JSON data', function(done) {
-                        api('/error', function(e, data) {
+                        api('/apps', function(e, data) {
                             expect(data).toBeNull();
                             done();
                         });
@@ -111,6 +129,12 @@ describe('API', function() {
             });
 
             describe('failed request', function() {
+                beforeEach(function() {
+                    request.send.andCallFake(function(uri, options, callback) {
+                        callback(null, { 'statusCode': 401 }, '{"error":"Invalid email or password."}');
+                    });
+                });
+
                 it('should return an error', function(done) {
                     api.port = '1983' + Math.floor(Math.random() * 10);
                     api('/apps', function(e, data) {
@@ -216,7 +240,6 @@ describe('API', function() {
 
     describe('defaults', function() {
         it('should map to request.defaults', function() {
-            var request = require('request');
             spyOn(request, 'defaults');
             api.defaults();
             expect(request.defaults).toHaveBeenCalled();
