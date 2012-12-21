@@ -72,10 +72,10 @@ describe('new API', function() {
             }).toThrow();
         });
 
-        it('should require callback argument', function() {
+        it('should not require callback argument', function() {
             expect(function() {
-                api({}, function(e, data) {});
-            }).toThrow();
+                api('/apps');
+            }).not.toThrow();
         });
 
         it('should try to send a request', function() {
