@@ -1,245 +1,292 @@
 var API = require('../lib/api'),
     request = require('../lib/request'),
-    api,
     options,
-    token;
+    api;
 
-describe('API', function() {
+describe('new API', function() {
     beforeEach(function() {
         options = {
             'token': Math.random().toString(),
-            'protocol': 'http:',
-            'host': '127.0.0.1',
-            'port': 3000,
+            'protocol': 'https:',
+            'host': 'build.phonegap.com',
+            'port': 443,
             'path': '/api/v1'
         };
+    });
+
+    it('should require options argument', function() {
+        expect(function() {
+            options = undefined;
+            api = new API(options);
+        }).toThrow();
+    });
+
+    it('should require options.token argument', function() {
+        expect(function() {
+            options.token = undefined;
+            api = new API(options);
+        }).toThrow();
+    });
+
+    it('should require options.protocol argument', function() {
+        expect(function() {
+            options.protocol = undefined;
+            api = new API(options);
+        }).toThrow();
+    });
+
+    it('should require options.host argument', function() {
+        expect(function() {
+            options.host = undefined;
+            api = new API(options);
+        }).toThrow();
+    });
+
+    it('should require options.port argument', function() {
+        expect(function() {
+            options.port = undefined;
+            api = new API(options);
+        }).toThrow();
+    });
+
+    it('should require options.path argument', function() {
+        expect(function() {
+            options.path = undefined;
+            api = new API(options);
+        }).toThrow();
+    });
+
+    it('should create a function', function() {
         api = new API(options);
+        expect(api).toEqual(jasmine.any(Function));
     });
 
-    describe('defaults', function() {
-        describe('token', function() {
-            it('should throw when missing', function() {
-                options.token = undefined;
-                expect(function() { new API(options); }).toThrow();
-            });
+    describe('api(path, callback)', function() {
+        beforeEach(function() {
+            api = new API(options);
         });
 
-        describe('protocol', function() {
-            it('should throw when missing', function() {
-                options.protocol = undefined;
-                expect(function() { new API(options); }).toThrow();
-            });
+        it('should require path argument', function() {
+            expect(function() {
+                api(null, function(e, data) {});
+            }).toThrow();
         });
 
-        describe('host', function() {
-            it('should throw when missing', function() {
-                options.host = undefined;
-                expect(function() { new API(options); }).toThrow();
-            });
+        it('should require callback argument', function() {
+            expect(function() {
+                api({}, function(e, data) {});
+            }).toThrow();
         });
 
-        describe('port', function() {
-            it('should throw when missing', function() {
-                options.port = undefined;
-                expect(function() { new API(options); }).toThrow();
-            });
+        it('should try to send a request', function() {
+            spyOn(request, 'send');
+            api('/apps', function(e, data) {});
+            expect(request.send).toHaveBeenCalledWith(
+                'https://build.phonegap.com:443/api/v1/apps?auth_token='+options.token,
+                jasmine.any(Object),
+                jasmine.any(Function)
+            );
         });
 
-        describe('path', function() {
-            it('should throw when missing', function() {
-                options.path = undefined;
-                expect(function() { new API(options); }).toThrow();
-            });
-        });
-    });
-
-    describe('request', function() {
-        describe('query', function() {
-            it('should become fully-qualified', function() {
-                var request = api('/apps', jasmine.createSpy());
-                expect(request.uri.href).toMatch('^http://127.0.0.1:3000/api/v1/apps');
-            });
-
-            it('should be trimmed', function() {
-                var request = api('  ///apps//  ', jasmine.createSpy());
-                expect(request.uri.href).toMatch('^http://127.0.0.1:3000/api/v1/apps');
-            });
-
-            it('should include auth_token query string', function() {
-                var request = api('  ///apps//  ', jasmine.createSpy());
-                var query = 'http://127.0.0.1:3000/api/v1/apps?auth_token=' + options.token;
-                expect(request.uri.href).toEqual(query);
-            });
-        });
-
-        describe('callback', function() {
+        describe('successful request', function() {
             beforeEach(function() {
-                spyOn(request, 'send');
-            });
-
-            it('should not be required', function() {
-                expect(function() { api('/apps'); }).not.toThrow();
-            });
-
-            describe('successful request', function() {
-                describe('without error key in response body', function() {
-                    beforeEach(function() {
-                        request.send.andCallFake(function(uri, options, callback) {
-                            callback(null, {'statusCode': 200}, '{"some":"data"}');
-                        });
-                    });
-
-                    it('should not return an error', function(done) {
-                        api('/apps', function(e, data) {
-                            expect(e).toBeNull();
-                            done();
-                        });
-                    });
-
-                    it('should return JSON data', function(done) {
-                        api('/apps', function(e, data) {
-                            expect(data).toEqual({"some":"data"});
-                            done();
-                        });
-                    });
-                });
-
-                describe('with error key in response body', function() {
-                    beforeEach(function() {
-                        request.send.andCallFake(function(uri, options, callback) {
-                            callback(null, {'statusCode': 200}, '{"error":"msg"}');
-                        });
-                    });
-
-                    it('should return an error', function(done) {
-                        api('/apps', function(e, data) {
-                            expect(e).not.toBeNull();
-                            expect(e.message).toEqual('msg');
-                            done();
-                        });
-                    });
-
-                    it('should not return JSON data', function(done) {
-                        api('/apps', function(e, data) {
-                            expect(data).toBeNull();
-                            done();
-                        });
-                    });
+                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                    callback(null, {statusCode:200}, '{"say":"winter is coming"}');
                 });
             });
 
-            describe('failed request', function() {
-                beforeEach(function() {
-                    request.send.andCallFake(function(uri, options, callback) {
-                        callback(null, { 'statusCode': 401 }, '{"error":"Invalid email or password."}');
-                    });
-                });
+            it('should be a GET request', function() {
+                api('/apps', function(e, data) {});
+                expect(request.send.mostRecentCall.args[1].method).toEqual('GET');
+            });
 
-                it('should return an error', function(done) {
-                    api.port = '1983' + Math.floor(Math.random() * 10);
-                    api('/apps', function(e, data) {
-                        expect(e).toEqual(jasmine.any(Error));
-                        done();
-                    });
+            it('should be a fully-qualified url', function() {
+                var url = 'https://build.phonegap.com:443/api/v1/apps?auth_token='+options.token;
+                api('/apps', function(e, data) {});
+                expect(request.send.mostRecentCall.args[0]).toEqual(url);
+            });
+
+            it('should be a trimmed url', function() {
+                var url = 'https://build.phonegap.com:443/api/v1/apps?auth_token='+options.token;
+                api('  ///apps//  ', function(e, data) {});
+                expect(request.send.mostRecentCall.args[0]).toEqual(url);
+            });
+
+            it('should trigger callback without an error', function(done) {
+                api('/apps', function(e, data) {
+                    expect(e).toBeNull();
+                    done();
+                });
+            });
+
+            it('should trigger callback with data object', function(done) {
+                api('/apps', function(e, data) {
+                    expect(data).toEqual({ say: 'winter is coming' });
+                    done();
+                });
+            });
+        });
+
+        describe('failed api request', function() {
+            beforeEach(function() {
+                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                    callback(new Error('timeout'), null, null);
+                });
+            });
+
+            it('should trigger callback with an error', function(done) {
+                api('/apps', function(e, data) {
+                    expect(e).toEqual(jasmine.any(Error));
+                    done();
+                });
+            });
+
+            it('should trigger callback without data object', function(done) {
+                api('/apps', function(e, data) {
+                    expect(data).not.toBeDefined();
+                    done();
+                });
+            });
+        });
+
+        describe('failed api response', function() {
+            beforeEach(function() {
+                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                    callback(null, { statusCode: 404 }, 'Page not found');
+                });
+            });
+
+            it('should trigger callback with an error', function(done) {
+                api('/apps', function(e, data) {
+                    expect(e).toEqual(jasmine.any(Error));
+                    done();
+                });
+            });
+
+            it('should trigger callback without data object', function(done) {
+                api('/apps', function(e, data) {
+                    expect(data).not.toBeDefined();
+                    done();
+                });
+            });
+        });
+
+        describe('failed api data', function() {
+            beforeEach(function() {
+                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                    callback(null, { statusCode: 200 }, '{"error":"invalid password"}');
+                });
+            });
+
+            it('should trigger callback with an error', function(done) {
+                api('/apps', function(e, data) {
+                    expect(e).toEqual(jasmine.any(Error));
+                    done();
+                });
+            });
+
+            it('should trigger callback without data object', function(done) {
+                api('/apps', function(e, data) {
+                    expect(data).not.toBeDefined();
+                    done();
                 });
             });
         });
     });
 
-    describe('()', function() {
-        it('should be a function', function() {
-            expect(api).toEqual(jasmine.any(Function));
+    describe('get(path, callback)', function() {
+        beforeEach(function() {
+            api = new API(options);
+            spyOn(api, 'request');
         });
 
-        it('should be passed to api.request', function() {
-            spyOn(api, 'request');
-            api('/apps');
-            expect(api.request).toHaveBeenCalled();
+        it('should trigger api(path, callback)', function() {
+            api.get('/apps', function(e, data) {});
+            expect(api.request).toHaveBeenCalledWith(
+                '/apps',
+                jasmine.any(Object),
+                jasmine.any(Function)
+            );
         });
 
         it('should be a GET request', function() {
-            var request = api('/apps');
-            expect(request.method).toEqual('GET');
+            api.get('/apps', function(e, data) {});
+            expect(api.request.mostRecentCall.args[1].method).toEqual('GET');
         });
     });
 
-    describe('get', function() {
-        it('should be a function', function() {
-            expect(api.get).toEqual(jasmine.any(Function));
-        });
-
-        it('should be passed to api.request', function() {
+    describe('post(path, callback)', function() {
+        beforeEach(function() {
+            api = new API(options);
             spyOn(api, 'request');
-            api.get('/apps');
-            expect(api.request).toHaveBeenCalled();
         });
 
-        it('should be a GET request', function() {
-            var request = api.get('/apps');
-            expect(request.method).toEqual('GET');
-        });
-    });
-
-    describe('post', function() {
-        it('should be a function', function() {
-            expect(api.post).toEqual(jasmine.any(Function));
-        });
-
-        it('should be passed to api.request', function() {
-            spyOn(api, 'request');
-            api.post('/apps');
-            expect(api.request).toHaveBeenCalled();
+        it('should trigger api(path, callback)', function() {
+            api.post('/apps', function(e, data) {});
+            expect(api.request).toHaveBeenCalledWith(
+                '/apps',
+                jasmine.any(Object),
+                jasmine.any(Function)
+            );
         });
 
         it('should be a POST request', function() {
-            var request = api.post('/apps');
-            expect(request.method).toEqual('POST');
+            api.post('/apps', function(e, data) {});
+            expect(api.request.mostRecentCall.args[1].method).toEqual('POST');
         });
     });
 
-    describe('put', function() {
-        it('should be a function', function() {
-            expect(api.put).toEqual(jasmine.any(Function));
+    describe('put(path, callback)', function() {
+        beforeEach(function() {
+            api = new API(options);
+            spyOn(api, 'request');
         });
 
-        it('should be passed to api.request', function() {
-            spyOn(api, 'request');
-            api.put('/apps');
-            expect(api.request).toHaveBeenCalled();
+        it('should trigger api(path, callback)', function() {
+            api.put('/apps', function(e, data) {});
+            expect(api.request).toHaveBeenCalledWith(
+                '/apps',
+                jasmine.any(Object),
+                jasmine.any(Function)
+            );
         });
 
         it('should be a PUT request', function() {
-            var request = api.put('/apps');
-            expect(request.method).toEqual('PUT');
+            api.put('/apps', function(e, data) {});
+            expect(api.request.mostRecentCall.args[1].method).toEqual('PUT');
         });
     });
 
-    describe('del', function() {
-        it('should be a function', function() {
-            expect(api.del).toEqual(jasmine.any(Function));
+    describe('del(path, callback)', function() {
+        beforeEach(function() {
+            api = new API(options);
+            spyOn(api, 'request');
         });
 
-        it('should be passed to api.request', function() {
-            spyOn(api, 'request');
-            api.del('/apps');
-            expect(api.request).toHaveBeenCalled();
+        it('should trigger api(path, callback)', function() {
+            api.del('/apps', function(e, data) {});
+            expect(api.request).toHaveBeenCalledWith(
+                '/apps',
+                jasmine.any(Object),
+                jasmine.any(Function)
+            );
         });
 
         it('should be a DELETE request', function() {
-            var request = api.del('/apps');
-            expect(request.method).toEqual('DELETE');
+            api.del('/apps', function(e, data) {});
+            expect(api.request.mostRecentCall.args[1].method).toEqual('DELETE');
         });
     });
 
     describe('pipe', function() {
         it('should be available', function() {
             var spy = jasmine.createSpy();
-            expect(api('/apps').pipe).toEqual(jasmine.any(Function));
+            expect(api('/apps', function(e, data) {}).pipe).toEqual(jasmine.any(Function));
         });
     });
 
     describe('defaults', function() {
-        it('should map to request.defaults', function() {
+        it('should be request.defaults', function() {
             spyOn(request, 'defaults');
             api.defaults();
             expect(request.defaults).toHaveBeenCalled();

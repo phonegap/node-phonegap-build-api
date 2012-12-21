@@ -1,6 +1,6 @@
 var Arguments = require('../lib/arguments');
 
-describe('Arguments', function() {
+describe('new Arguments', function() {
     describe('path', function() {
         it('should parse path from arguments', function() {
             var args = new Arguments('/apps', function(){});
