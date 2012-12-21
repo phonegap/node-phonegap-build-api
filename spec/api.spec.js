@@ -61,20 +61,26 @@ describe('new API', function() {
         expect(api).toEqual(jasmine.any(Function));
     });
 
-    describe('api(path, callback)', function() {
+    describe('api(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
         });
 
         it('should require path argument', function() {
             expect(function() {
-                api(null, function(e, data) {});
+                api(null);
             }).toThrow();
+        });
+
+        it('should not require options argument', function() {
+            expect(function() {
+                api('/apps');
+            }).not.toThrow();
         });
 
         it('should not require callback argument', function() {
             expect(function() {
-                api('/apps');
+                api('/apps', {});
             }).not.toThrow();
         });
 
@@ -194,17 +200,17 @@ describe('new API', function() {
         });
     });
 
-    describe('get(path, callback)', function() {
+    describe('get(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
         });
 
-        it('should trigger api(path, callback)', function() {
-            api.get('/apps', function(e, data) {});
+        it('should trigger api(path, options, callback)', function() {
+            api.get('/apps');
             expect(api.request).toHaveBeenCalledWith(
                 '/apps',
-                jasmine.any(Object),
+                { method: 'GET' },
                 jasmine.any(Function)
             );
         });
@@ -215,17 +221,17 @@ describe('new API', function() {
         });
     });
 
-    describe('post(path, callback)', function() {
+    describe('post(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
         });
 
-        it('should trigger api(path, callback)', function() {
-            api.post('/apps', function(e, data) {});
+        it('should trigger api(path, options, callback)', function() {
+            api.post('/apps');
             expect(api.request).toHaveBeenCalledWith(
                 '/apps',
-                jasmine.any(Object),
+                { method: 'POST' },
                 jasmine.any(Function)
             );
         });
@@ -236,17 +242,17 @@ describe('new API', function() {
         });
     });
 
-    describe('put(path, callback)', function() {
+    describe('put(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
         });
 
-        it('should trigger api(path, callback)', function() {
+        it('should trigger api(path, options, callback)', function() {
             api.put('/apps', function(e, data) {});
             expect(api.request).toHaveBeenCalledWith(
                 '/apps',
-                jasmine.any(Object),
+                { method: 'PUT' },
                 jasmine.any(Function)
             );
         });
@@ -257,17 +263,17 @@ describe('new API', function() {
         });
     });
 
-    describe('del(path, callback)', function() {
+    describe('del(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
         });
 
-        it('should trigger api(path, callback)', function() {
+        it('should trigger api(path, options, callback)', function() {
             api.del('/apps', function(e, data) {});
             expect(api.request).toHaveBeenCalledWith(
                 '/apps',
-                jasmine.any(Object),
+                { method: 'DELETE' },
                 jasmine.any(Function)
             );
         });
