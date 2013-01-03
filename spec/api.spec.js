@@ -56,7 +56,7 @@ describe('new API', function() {
         }).toThrow();
     });
 
-    it('should create a function', function() {
+    it('should return api(...)', function() {
         api = new API(options);
         expect(api).toEqual(jasmine.any(Function));
     });
@@ -200,7 +200,7 @@ describe('new API', function() {
         });
     });
 
-    describe('get(path, options, callback)', function() {
+    describe('api.get(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
@@ -221,7 +221,7 @@ describe('new API', function() {
         });
     });
 
-    describe('post(path, options, callback)', function() {
+    describe('api.post(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
@@ -242,7 +242,7 @@ describe('new API', function() {
         });
     });
 
-    describe('put(path, options, callback)', function() {
+    describe('api.put(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
@@ -263,7 +263,7 @@ describe('new API', function() {
         });
     });
 
-    describe('del(path, options, callback)', function() {
+    describe('api.del(path, options, callback)', function() {
         beforeEach(function() {
             api = new API(options);
             spyOn(api, 'request');
@@ -284,14 +284,14 @@ describe('new API', function() {
         });
     });
 
-    describe('pipe', function() {
+    describe('api(...).pipe', function() {
         it('should be available', function() {
             var spy = jasmine.createSpy();
             expect(api('/apps', function(e, data) {}).pipe).toEqual(jasmine.any(Function));
         });
     });
 
-    describe('defaults', function() {
+    describe('api.defaults()', function() {
         it('should be request.defaults', function() {
             spyOn(request, 'defaults');
             api.defaults();
