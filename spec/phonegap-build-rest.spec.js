@@ -12,15 +12,16 @@ var client = require('../lib/client'),
 describe('phonegap-build-rest', function() {
     describe('auth(options, callback)', function() {
         var options;
-        beforeEach(function() {
-            options = { username: 'zelda', password: 'tr1force' };
-        });
 
         it('should be a function', function() {
             expect(client.auth).toEqual(jasmine.any(Function));
         });
 
         describe('using username and password', function() {
+            beforeEach(function() {
+                options = { username: 'zelda', password: 'tr1force' };
+            });
+
             it('should require options.username', function() {
                 expect(function() {
                     options.username = undefined;
@@ -136,6 +137,39 @@ describe('phonegap-build-rest', function() {
                         expect(api).not.toBeDefined();
                         done();
                     });
+                });
+            });
+        });
+
+        describe('using token', function() {
+            beforeEach(function() {
+                options = { token: 'abc123' };
+            });
+
+            it('should require options.token', function() {
+                expect(function() {
+                    options.token = undefined;
+                    client.auth(options, function(e, api) {});
+                }).toThrow();
+            });
+
+            it('should require callback', function() {
+                expect(function() {
+                    client.auth(options, null);
+                }).toThrow();
+            });
+
+            it('should trigger callback without an error', function(done) {
+                client.auth(options, function(e, api) {
+                    expect(e).toBeNull();
+                    done();
+                });
+            });
+
+            it('should trigger callback with an API object', function(done) {
+                client.auth(options, function(e, api) {
+                    expect(api).toBeDefined();
+                    done();
                 });
             });
         });
