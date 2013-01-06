@@ -131,6 +131,49 @@ describe('new API', function() {
                     done();
                 });
             });
+
+            describe('with form-data', function() {
+                var requestSpy,
+                    requestOptions,
+                    formSpy;
+
+                beforeEach(function() {
+                    requestSpy = {
+                        form: jasmine.createSpy()
+                    };
+                    formSpy = {
+                        append: jasmine.createSpy()
+                    };
+                    requestOptions = {
+                        form: {
+                            data: {
+                                name: 'My App'
+                            }
+                        }
+                    };
+                    request.send.andReturn(requestSpy);
+                    requestSpy.form.andReturn(formSpy);
+                });
+
+                it('should have content-type of "multipart/form-data"', function() {
+                    api('/apps', requestOptions, function(e, data) {});
+                    expect(requestSpy.form).toHaveBeenCalled();
+                });
+
+                it('should append each key of options.form', function() {
+                    api('/apps', requestOptions, function(e, data) {});
+                    expect(formSpy.append).toHaveBeenCalled();
+                    expect(formSpy.append.mostRecentCall.args[0]).toEqual('data');
+                });
+
+                it('should stringify JSON content', function() {
+                    api('/apps', requestOptions, function(e, data) {});
+                    expect(formSpy.append).toHaveBeenCalledWith(
+                        'data',
+                        JSON.stringify({ name: 'My App' })
+                    );
+                });
+            });
         });
 
         describe('failed api request', function() {
