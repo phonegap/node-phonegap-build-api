@@ -144,7 +144,7 @@ Build specific platforms:
         console.log('data:', data);
     });
 
-### POST https://build.phonegap.com/api/v1/apps/:id/build
+### POST https://build.phonegap.com/api/v1/apps/:id/build/:platform
 
     api.post('/apps/232741/build/android', function(e, data) {
         console.log('error:', e);
