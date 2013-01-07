@@ -166,11 +166,24 @@ describe('new API', function() {
                     expect(formSpy.append.mostRecentCall.args[0]).toEqual('data');
                 });
 
-                it('should stringify JSON content', function() {
+                it('should handle "data" key as a JSON data type', function() {
                     api('/apps', requestOptions, function(e, data) {});
                     expect(formSpy.append).toHaveBeenCalledWith(
                         'data',
                         JSON.stringify({ name: 'My App' })
+                    );
+                });
+
+                it('should handle other keys as file paths', function() {
+                    var fs = require('fs');
+                    spyOn(fs, 'createReadStream');
+
+                    requestOptions.form.icon = '/path/to/icon.png';
+                    api('/apps', requestOptions, function(e, data) {});
+
+                    expect(formSpy.append.callCount).toEqual(2);
+                    expect(fs.createReadStream).toHaveBeenCalledWith(
+                        '/path/to/icon.png'
                     );
                 });
             });
