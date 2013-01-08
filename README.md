@@ -236,6 +236,203 @@ Build specific platforms:
         console.log('data:', data);
     });
 
+## API
+
+### client.auth(options, callback)
+
+PhoneGap Build Authentication.
+
+Authentications with PhoneGap Build and returns an instance of `API`.
+The authentication credentials can be a username and password or user-token.
+
+#### Options:
+
+  - `options` `{Object}` is the authentication settings.
+  - `options.username` `{String}` is the phonegap build username.
+  - `options.password` `{String}` is the phonegap build password.
+  - `options.token` `{String}` can be used instead of username and password.
+  - `callback` `{Function}` is trigger after the authentication.
+    - `e` `{Error}` is null unless there is an error.
+    - `api` `{Object}` is the `API` instance to interact with phonegap build.
+
+#### Example:
+
+    var client = require('phonegap-build-rest-js');
+
+    client.auth({ username: 'zelda', password: 'tr1force' }, function(e, api) {
+        if (e) {
+            console.log('error:', e);
+            return;
+        }
+
+        // make some api requests
+    });
+
+### api(path, [options], [callback])
+
+API Request.
+
+Create a RESTful request to the PhoneGap Build API. The `api` function is a
+wrapper to [request][github-request]'s interface.
+
+The `path` parameter is a relative path to a PhoneGap Build API response.
+For example, to the resource `https://build.phonegap.com/api/v1/me` is specified
+as the path `/me`.
+
+The `options` parameter maps directly to [request][github-request]'s options.
+
+The default request method is `GET`. You can specify a specific but you can be changed
+in the `options` parameters (e.g. `{ method: 'POST' }`).
+
+To send form data, you can use the `options.form` parameter. The key `data` is
+assumed to be JSON and all other keys are assumed to be file paths.
+
+#### Options:
+
+  - `path` `{String}` is a relative resource path (e.g. `"/apps"`).
+  - `[options]` `{Object}` is a request options object.
+  - `[callback]` `{Function}` is trigger after the request
+    - `e` `{Error}` is null unless there is an error
+    - `data` `{Object}` is the JSON response.
+
+#### Example: GET Request
+
+    api('/me', function(e, data) {
+        console.log('error:', e);
+        console.log('data:', data);
+    });
+
+#### Example: POST Request
+
+    var options = {
+        form: {
+            data: {
+                title: 'My App',
+                create_method: 'file'
+            },
+            file: '/path/to/app.zip'
+        },
+        method: 'POST'
+    };
+
+    api('/apps', options, function(e, data) {
+        console.log('error:', e);
+        console.log('data:', data);
+    });
+
+### api.get(path, [options], [callback])
+
+GET API Request.
+
+A convenience function for `api(path, [options], [callback])`, where `options`
+uses `{ method: 'GET' }`.
+
+#### Options:
+
+  - `path` `{String}` is a relative resource path (e.g. `"/apps"`).
+  - `[options]` `{Object}` is a request options object.
+  - `[callback]` `{Function}` is trigger after the request
+    - `e` `{Error}` is null unless there is an error
+    - `data` `{Object}` is the JSON response.
+
+#### Example:
+
+    api.get('/me', function(e, data) {
+        console.log('error:', e);
+        console.log('data:', data);
+    });
+
+### api.post(path, [options], [callback])
+
+POST API Request.
+
+A convenience function for `api(path, [options], [callback])`, where `options`
+uses `{ method: 'POST' }`.
+
+#### Options:
+
+  - `path` `{String}` is a relative resource path (e.g. `"/apps"`).
+  - `[options]` `{Object}` is a request options object.
+  - `[callback]` `{Function}` is trigger after the request
+    - `e` `{Error}` is null unless there is an error
+    - `data` `{Object}` is the JSON response.
+
+#### Example:
+
+    var options = {
+        form: {
+            data: {
+                title: 'My App',
+                create_method: 'file'
+            },
+            file: '/path/to/app.zip'
+        }
+    };
+
+    api.post('/apps', options, function(e, data) {
+        console.log('error:', e);
+        console.log('data:', data);
+    });
+
+### api.put(path, [options], [callback])
+
+PUT API Request.
+
+A convenience function for `api(path, [options], [callback])`, where `options`
+uses `{ method: 'PUT' }`.
+
+#### Options:
+
+  - `path` `{String}` is a relative resource path (e.g. `"/apps"`).
+  - `[options]` `{Object}` is a request options object.
+  - `[callback]` `{Function}` is trigger after the request
+    - `e` `{Error}` is null unless there is an error
+    - `data` `{Object}` is the JSON response.
+
+#### Example:
+
+    var options = {
+        form: {
+            data: {
+                debug: false
+            },
+            file: '/path/to/app.zip'
+        }
+    };
+
+    api.put('/apps/197196', options, function(e, data) {
+        console.log('error:', e);
+        console.log('data:', data);
+    });
+
+### api.del(path, [options], [callback])
+
+DELETE API Request.
+
+A convenience function for `api(path, [options], [callback])`, where `options`
+uses `{ method: 'DELETE' }`.
+
+#### Options:
+
+  - `path` `{String}` is a relative resource path (e.g. `"/apps"`).
+  - `[options]` `{Object}` is a request options object.
+  - `[callback]` `{Function}` is trigger after the request
+    - `e` `{Error}` is null unless there is an error
+    - `data` `{Object}` is the JSON response.
+
+#### Example:
+
+    api.del('/apps/14450', function(e, data) {
+        console.log('error:', e);
+        console.log('data:', data);
+    });
+
+### api.defaults(options)
+
+This maps directly to [request][github-request]'s `default` method.
+
+> This method returns a wrapper around the normal request API that defaults to whatever options you pass in to it.
+
 ## Alternative Libraries
 
 ### Java
