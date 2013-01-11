@@ -16,11 +16,19 @@ If something is inaccurate or missing, please send a pull request!
 
 ## Usage
 
-### Authentication
+### Authenticate with Username and Password
 
     var client = require('phonegap-build-rest');
 
     client.auth({ username: 'zelda', password: 'tr1f0rce' }, function(e, api) {
+        // time to make requests
+    });
+
+### Authenticate with Token
+
+    var client = require('phonegap-build-rest');
+
+    client.auth({ token: 'abc123' }, function(e, api) {
         // time to make requests
     });
 
