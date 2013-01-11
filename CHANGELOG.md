@@ -1,3 +1,11 @@
+0.3.1 / 2012-01-10
+==================
+
+  * Add usage example for token authentication.
+  * Rename project from 'phonegap-build-rest-js' to 'phonegap-build-api-js'.
+  * Unpublish NPM modules 'phonegap-build-rest-js'.
+  * Publish NPM module 'phonegap-build-api-js'.
+  
 0.3.0 / 2012-01-06
 ==================
 
