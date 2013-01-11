@@ -6,10 +6,10 @@ var client = require('../lib/client'),
     request = require('request');
 
 /*
- * Specification for phonegap-build-rest client.
+ * Specification for phonegap-build-api client.
  */
 
-describe('phonegap-build-rest', function() {
+describe('phonegap-build-api', function() {
     describe('auth(options, callback)', function() {
         var options;
 

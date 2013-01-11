@@ -1,4 +1,4 @@
-# phonegap-build-rest-js [![Build Status][travis-ci-img]][travis-ci-url]
+# phonegap-build-api-js [![Build Status][travis-ci-img]][travis-ci-url]
 
 > Node.js REST Client for the PhoneGap Build API
 
@@ -18,7 +18,7 @@ If something is inaccurate or missing, please send a pull request!
 
 ### Authenticate with Username and Password
 
-    var client = require('phonegap-build-rest');
+    var client = require('phonegap-build-api');
 
     client.auth({ username: 'zelda', password: 'tr1f0rce' }, function(e, api) {
         // time to make requests
@@ -26,7 +26,7 @@ If something is inaccurate or missing, please send a pull request!
 
 ### Authenticate with Token
 
-    var client = require('phonegap-build-rest');
+    var client = require('phonegap-build-api');
 
     client.auth({ token: 'abc123' }, function(e, api) {
         // time to make requests
@@ -265,7 +265,7 @@ The authentication credentials can be a username and password or user-token.
 
 #### Example:
 
-    var client = require('phonegap-build-rest-js');
+    var client = require('phonegap-build-api');
 
     client.auth({ username: 'zelda', password: 'tr1force' }, function(e, api) {
         if (e) {
@@ -451,8 +451,8 @@ This maps directly to [request][github-request]'s `default` method.
 
 - [phonegapbuildapi][github-phonegapbuildapi] by [germallon][github-germallon]
 
-[travis-ci-img]: https://secure.travis-ci.org/mwbrooks/phonegap-build-rest-js.png
-[travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-rest-js
+[travis-ci-img]: https://secure.travis-ci.org/mwbrooks/phonegap-build-api-js.png
+[travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-api-js
 [build-api-docs]: https://build.phonegap.com/docs/api
 [github-mikeal]: https://github.com/mikeal
 [github-request]: https://github.com/mikeal/request

@@ -1,16 +1,15 @@
 {
-    "name": "phonegap-build-rest",
+    "name": "phonegap-build-api",
     "description": "REST Client for the PhoneGap Build API",
     "version": "0.3.0",
-    "homepage": "http://github.com/mwbrooks/phonegap-build-rest-js",
+    "homepage": "http://github.com/mwbrooks/phonegap-build-api-js",
     "repository": {
         "type": "git",
-        "url": "git://github.com/mwbrooks/phonegap-build-rest-js.git"
+        "url": "git://github.com/mwbrooks/phonegap-build-api-js.git"
     },
     "keywords": [
         "phonegap",
-        "phonegap build",
-        "api"
+        "phonegap build"
     ],
     "preferGlobal": false,
     "main": "./lib/client.js",
