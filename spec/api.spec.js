@@ -56,6 +56,13 @@ describe('new API', function() {
         }).toThrow();
     });
 
+    it('should not require options.proxy argument', function() {
+        expect(function() {
+            options.proxy = undefined;
+            api = new API(options);
+        }).not.toThrow();
+    });
+
     it('should return api(...)', function() {
         api = new API(options);
         expect(api).toEqual(jasmine.any(Function));
@@ -185,6 +192,15 @@ describe('new API', function() {
                     expect(fs.createReadStream).toHaveBeenCalledWith(
                         '/path/to/icon.png'
                     );
+                });
+            });
+
+            describe('with proxy', function() {
+                it('should pass proxy to request', function() {
+                    options.proxy = 'http://myproxy.com';
+                    api = new API(options);
+                    api('/apps', function(e, data) {});
+                    expect(request.send.mostRecentCall.args[1].proxy).toEqual('http://myproxy.com');
                 });
             });
         });

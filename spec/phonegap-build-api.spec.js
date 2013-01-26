@@ -173,5 +173,18 @@ describe('phonegap-build-api', function() {
                 });
             });
         });
+
+        describe('passing request options', function() {
+            beforeEach(function() {
+                options = { username: 'zelda', password: 'tr1f0rce' };
+            });
+
+            it('should pass options.proxy to request', function() {
+                options.proxy = 'http://myproxy.com';
+                spyOn(request, 'post');
+                client.auth(options, function(e, api) {});
+                expect(request.post.mostRecentCall.args[1].proxy).toEqual('http://myproxy.com');
+            });
+        });
     });
 });
