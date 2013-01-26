@@ -259,6 +259,7 @@ The authentication credentials can be a username and password or user-token.
   - `options.username` `{String}` is the phonegap build username.
   - `options.password` `{String}` is the phonegap build password.
   - `options.token` `{String}` can be used instead of username and password.
+  - [`options.proxy`] `{String}` specifies an optional proxy server. e.g. 'http://myproxy.com:8181'.
   - `callback` `{Function}` is trigger after the authentication.
     - `e` `{Error}` is null unless there is an error.
     - `api` `{Object}` is the `API` instance to interact with phonegap build.
