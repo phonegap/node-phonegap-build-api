@@ -452,8 +452,8 @@ This maps directly to [request][github-request]'s `default` method.
 
 - [phonegapbuildapi][github-phonegapbuildapi] by [germallon][github-germallon]
 
-[travis-ci-img]: https://travis-ci.org/mwbrooks/phonegap-build-api-js.png?branch=master
-[travis-ci-url]: http://travis-ci.org/mwbrooks/phonegap-build-api-js
+[travis-ci-img]: https://travis-ci.org/phonegap/phonegap-build-api-js.png?branch=master
+[travis-ci-url]: https://travis-ci.org/phonegap/phonegap-build-api-js
 [build-api-docs]: https://build.phonegap.com/docs/api
 [github-mikeal]: https://github.com/mikeal
 [github-request]: https://github.com/mikeal/request
