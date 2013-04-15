@@ -230,13 +230,14 @@ describe('new API', function() {
         describe('failed api response', function() {
             beforeEach(function() {
                 spyOn(request, 'send').andCallFake(function(url, opts, callback) {
-                    callback(null, { statusCode: 404 }, 'Page not found');
+                    callback(null, { statusCode: 404 }, 'page not found');
                 });
             });
 
             it('should trigger callback with an error', function(done) {
                 api('/apps', function(e, data) {
                     expect(e).toEqual(jasmine.any(Error));
+                    expect(e.message).toEqual('page not found');
                     done();
                 });
             });
@@ -245,6 +246,22 @@ describe('new API', function() {
                 api('/apps', function(e, data) {
                     expect(data).not.toBeDefined();
                     done();
+                });
+            });
+
+            describe('when no error body provided', function() {
+                beforeEach(function() {
+                    request.send.andCallFake(function(uri, opts, callback) {
+                        callback(null, { statusCode: 501 }, '');
+                    });
+                });
+
+                it('should provide default error message', function(done) {
+                    api('/apps', function(e, data) {
+                        expect(e).toEqual(jasmine.any(Error));
+                        expect(e.message).toMatch('server returned');
+                        done();
+                    });
                 });
             });
         });
