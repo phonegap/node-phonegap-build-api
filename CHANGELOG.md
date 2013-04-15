@@ -1,3 +1,12 @@
+0.3.3 / 2012-04-15
+==================
+
+  * Correct license and copyright.
+  * Update references for github.com/phonegap/
+  * Test runner (jasmine-node) to 1.1.x for stability.
+  * Remove unused dev dependency: express.
+  * Provide default error message when server does not respond.
+
 0.3.2 / 2012-01-25
 ==================
 
