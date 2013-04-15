@@ -99,13 +99,14 @@ describe('phonegap-build-api', function() {
             describe('failed authentication response', function() {
                 beforeEach(function() {
                     spyOn(request, 'post').andCallFake(function(uri, opts, callback) {
-                        callback(null, { statusCode: 404 }, '');
+                        callback(null, { statusCode: 404 }, 'page not found');
                     });
                 });
 
                 it('should trigger callback with an error', function(done) {
                     client.auth(options, function(e, api) {
                         expect(e).toEqual(jasmine.any(Error));
+                        expect(e.message).toEqual('page not found');
                         done();
                     });
                 });
@@ -114,6 +115,22 @@ describe('phonegap-build-api', function() {
                     client.auth(options, function(e, api) {
                         expect(api).not.toBeDefined();
                         done();
+                    });
+                });
+
+                describe('when no error body provided', function() {
+                    beforeEach(function() {
+                        request.post.andCallFake(function(uri, opts, callback) {
+                            callback(null, { statusCode: 501 }, '');
+                        });
+                    });
+
+                    it('should provide default error message', function(done) {
+                        client.auth(options, function(e, api) {
+                            expect(e).toEqual(jasmine.any(Error));
+                            expect(e.message).toMatch('server returned');
+                            done();
+                        });
                     });
                 });
             });
