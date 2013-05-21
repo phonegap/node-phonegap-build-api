@@ -4,7 +4,7 @@
 
 ## Overview
 
-This library simplfies authentication and requests to the
+This library simplifies authentication and requests to the
 [PhoneGap Build REST API][build-api-docs] for node.js clients.
 
 In many ways, this library is little more than a convenience wrapper
