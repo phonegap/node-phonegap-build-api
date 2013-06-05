@@ -1,7 +1,9 @@
 /*!
  * Module dependencies.
  */
-var client = require('../lib/client');
+
+var client = require('../lib/client'),
+    fs = require('fs');
 
 /*!
  * GET https://build.phonegap.com/api/v1/apps/:id/:platform
