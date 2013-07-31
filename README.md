@@ -1,4 +1,4 @@
-# phonegap-build-api-js [![Build Status][travis-ci-img]][travis-ci-url]
+# PhoneGap Build API Node Module [![Build Status][travis-ci-img]][travis-ci-url]
 
 > Node.js REST Client for the PhoneGap Build API
 
@@ -452,8 +452,8 @@ This maps directly to [request][github-request]'s `default` method.
 
 - [phonegapbuildapi][github-phonegapbuildapi] by [germallon][github-germallon]
 
-[travis-ci-img]: https://travis-ci.org/phonegap/phonegap-build-api-js.png?branch=master
-[travis-ci-url]: https://travis-ci.org/phonegap/phonegap-build-api-js
+[travis-ci-img]: https://travis-ci.org/phonegap/node-phonegap-build-api.png?branch=master
+[travis-ci-url]: https://travis-ci.org/phonegap/node-phonegap-build-api
 [build-api-docs]: https://build.phonegap.com/docs/api
 [github-mikeal]: https://github.com/mikeal
 [github-request]: https://github.com/mikeal/request
