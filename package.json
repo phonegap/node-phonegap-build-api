@@ -2,10 +2,10 @@
     "name": "phonegap-build-api",
     "description": "REST Client for the PhoneGap Build API",
     "version": "0.3.3",
-    "homepage": "http://github.com/phonegap/phonegap-build-api-js",
+    "homepage": "http://github.com/phonegap/node-phonegap-build-api",
     "repository": {
         "type": "git",
-        "url": "git://github.com/phonegap/phonegap-build-api-js.git"
+        "url": "git://github.com/phonegap/node-phonegap-build-api.git"
     },
     "keywords": [
         "phonegap",

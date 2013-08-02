@@ -2,7 +2,7 @@
 
 ## Get the Source
 
-    $ git clone https://github.com/mwbrooks/phonegap-build-api-js.git
+    $ git clone https://github.com/phonegap/node-phonegap-build-api.git
 
 ## Install the Dependencies
 
