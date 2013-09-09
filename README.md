@@ -32,57 +32,57 @@ If something is inaccurate or missing, please send a pull request!
         // time to make requests
     });
 
-### GET https://build.phonegap.com/api/v1/me
+### GET /api/v1/me
 
     api.get('/me', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### GET https://build.phonegap.com/api/v1/apps
+### GET /api/v1/apps
 
     api.get('/apps', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### GET https://build.phonegap.com/api/v1/apps/:id
+### GET /api/v1/apps/:id
 
     api.get('/apps/199692', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### GET https://build.phonegap.com/api/v1/apps/:id/icon
+### GET /api/v1/apps/:id/icon
 
     api.get('/apps/199692/icon').pipe(fs.createWriteStream('icon.png'));
 
-### GET https://build.phonegap.com/api/v1/apps/:id/:platform
+### GET /api/v1/apps/:id/:platform
 
     api.get('/apps/199692/android').pipe(fs.createWriteStream('app.apk'));
 
-### GET https://build.phonegap.com/api/v1/keys
+### GET /api/v1/keys
 
     api.get('/keys', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### GET https://build.phonegap.com/api/v1/keys/:platform
+### GET /api/v1/keys/:platform
 
     api.get('/keys/ios', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### GET https://build.phonegap.com/api/v1/keys/:platform/:id
+### GET /api/v1/keys/:platform/:id
 
     api.get('/keys/ios/917', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### POST https://build.phonegap.com/api/v1/apps
+### POST /api/v1/apps
 
     var options = {
         form: {
@@ -99,7 +99,7 @@ If something is inaccurate or missing, please send a pull request!
         console.log('data:', data);
     });
 
-### PUT https://build.phonegap.com/api/v1/apps/:id
+### PUT /api/v1/apps/:id
 
     var options = {
         form: {
@@ -115,7 +115,7 @@ If something is inaccurate or missing, please send a pull request!
         console.log('data:', data);
     });
 
-### POST https://build.phonegap.com/api/v1/apps/:id/icon
+### POST /api/v1/apps/:id/icon
 
     var options = {
         form: {
@@ -128,7 +128,7 @@ If something is inaccurate or missing, please send a pull request!
         console.log('data:', data);
     });
 
-### POST https://build.phonegap.com/api/v1/apps/:id/build
+### POST /api/v1/apps/:id/build
 
 Build all platforms:
 
@@ -152,14 +152,14 @@ Build specific platforms:
         console.log('data:', data);
     });
 
-### POST https://build.phonegap.com/api/v1/apps/:id/build/:platform
+### POST /api/v1/apps/:id/build/:platform
 
     api.post('/apps/232741/build/android', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### POST https://build.phonegap.com/api/v1/apps/:id/collaborators
+### POST /api/v1/apps/:id/collaborators
 
     var options = {
         form: {
@@ -175,7 +175,7 @@ Build specific platforms:
         console.log('data:', data);
     });
 
-### PUT https://build.phonegap.com/api/v1/apps/:id/collaborators/:id
+### PUT /api/v1/apps/:id/collaborators/:id
 
     var options = {
         form: {
@@ -190,7 +190,7 @@ Build specific platforms:
         console.log('data:', data);
     });
 
-### POST https://build.phonegap.com/api/v1/keys/:platform
+### POST /api/v1/keys/:platform
 
     var options = {
         form: {
@@ -208,7 +208,7 @@ Build specific platforms:
         console.log('data:', data);
     });
 
-### PUT https://build.phonegap.com/api/v1/keys/:platform/:id
+### PUT /api/v1/keys/:platform/:id
 
     var options = {
         form: {
@@ -223,21 +223,21 @@ Build specific platforms:
         console.log('data:', data);
     });
 
-### DELETE https://build.phonegap.com/api/v1/apps/:id
+### DELETE /api/v1/apps/:id
 
     api.del('/apps/14450', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### DELETE https://build.phonegap.com/api/v1/apps/:id/collaborators/:id
+### DELETE /api/v1/apps/:id/collaborators/:id
 
     api.del('/apps/232741/collaborators/263955', function(e, data) {
         console.log('error:', e);
         console.log('data:', data);
     });
 
-### DELETE https://build.phonegap.com/api/v1/keys/:platform/:id
+### DELETE /api/v1/keys/:platform/:id
 
     api.del('/keys/ios/2729', function(e, data) {
         console.log('error:', e);
