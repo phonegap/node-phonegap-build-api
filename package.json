@@ -23,7 +23,7 @@
         "request":"2.11.x"
     },
     "devDependencies": {
-        "jasmine-node": "1.1.x"
+        "jasmine-node": "1.14.5"
     },
     "optionalDependencies": {
     },
