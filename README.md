@@ -1,4 +1,4 @@
-# PhoneGap Build API Node Module [![Build Status][travis-ci-img]][travis-ci-url]
+# PhoneGap Build API Node Module [![Build Status][travis-ci-img]][travis-ci-url] [![bitHound Score][bithound-img]][bithound-url]
 
 > Node.js REST Client for the PhoneGap Build API
 
@@ -136,7 +136,7 @@ Build all platforms:
         console.log('error:', e);
         console.log('data:', data);
     });
- 
+
 Build specific platforms:
 
     var options = {
@@ -452,7 +452,7 @@ This maps directly to [request][github-request]'s `default` method.
 
 - [phonegapbuildapi][github-phonegapbuildapi] by [germallon][github-germallon]
 
-[travis-ci-img]: https://travis-ci.org/phonegap/node-phonegap-build-api.png?branch=master
+[travis-ci-img]: https://travis-ci.org/phonegap/node-phonegap-build-api.svg?branch=master
 [travis-ci-url]: https://travis-ci.org/phonegap/node-phonegap-build-api
 [build-api-docs]: https://build.phonegap.com/docs/api
 [github-mikeal]: https://github.com/mikeal
@@ -461,4 +461,5 @@ This maps directly to [request][github-request]'s `default` method.
 [github-hardeep]: https://github.com/hardeep
 [github-phonegapbuildapi]: https://github.com/germallon/phonegapbuildapi
 [github-germallon]: https://github.com/germallon
-
+[bithound-img]: https://www.bithound.io/github/phonegap/node-phonegap-build-api/badges/score.svg
+[bithound-url]: https://www.bithound.io/github/phonegap/node-phonegap-build-api
