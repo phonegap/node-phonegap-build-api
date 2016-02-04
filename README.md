@@ -259,6 +259,10 @@ The authentication credentials can be a username and password or user-token.
   - `options.username` `{String}` is the phonegap build username.
   - `options.password` `{String}` is the phonegap build password.
   - `options.token` `{String}` can be used instead of username and password.
+  - [`options.protocol`] `{String}` optional server protocol. e.g. 'https:'.
+  - [`options.host`] `{String}` optional server host. e.g. 'build.phonegap.com:'.
+  - [`options.port`] `{String}` optional server port. e.g. '443'.
+  - [`options.path`] `{String}` optional server path prefix. e.g. '/api/v1'.
   - [`options.proxy`] `{String}` specifies an optional proxy server. e.g. 'http://myproxy.com:8181'.
   - `callback` `{Function}` is trigger after the authentication.
     - `e` `{Error}` is null unless there is an error.
@@ -300,6 +304,10 @@ assumed to be JSON and all other keys are assumed to be file paths.
 
   - `path` `{String}` is a relative resource path (e.g. `"/apps"`).
   - `[options]` `{Object}` is a request options object.
+  - `[options.protocol]` `{String}` optional server protocol. e.g. 'https:'.
+  - `[options.host]` `{String}` optional server host. e.g. 'build.phonegap.com:'.
+  - `[options.port]` `{String}` optional server port. e.g. '443'.
+  - `[options.path]` `{String}` optional server path prefix. e.g. '/api/v1'.
   - `[callback]` `{Function}` is trigger after the request
     - `e` `{Error}` is null unless there is an error
     - `data` `{Object}` is the JSON response.

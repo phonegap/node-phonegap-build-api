@@ -1,5 +1,6 @@
 var API = require('../lib/api'),
     request = require('../lib/request'),
+    defaults = require('../lib/defaults'),
     options,
     api;
 
@@ -28,32 +29,80 @@ describe('new API', function() {
         }).toThrow();
     });
 
-    it('should require options.protocol argument', function() {
+    it('should not require options.protocol argument', function() {
         expect(function() {
             options.protocol = undefined;
             api = new API(options);
-        }).toThrow();
+        }).not.toThrow();
     });
 
-    it('should require options.host argument', function() {
+    it('should have default for options.protocol argument', function() {
+        options.protocol = undefined;
+        api = new API(options);
+        expect(api.protocol).toEqual(defaults.protocol);
+    });
+
+    it('should support setting options.protocol argument', function() {
+        options.protocol = 'http:';
+        api = new API(options);
+        expect(api.protocol).toEqual('http:');
+    });
+
+    it('should not require options.host argument', function() {
         expect(function() {
             options.host = undefined;
             api = new API(options);
-        }).toThrow();
+        }).not.toThrow();
     });
 
-    it('should require options.port argument', function() {
+    it('should have default for options.host argument', function() {
+        options.host = undefined;
+        api = new API(options);
+        expect(api.host).toEqual(defaults.host);
+    });
+
+    it('should support setting options.host argument', function() {
+        options.host = 'stage.build.phonegap.com';
+        api = new API(options);
+        expect(api.host).toEqual('stage.build.phonegap.com');
+    });
+
+    it('should not require options.port argument', function() {
         expect(function() {
             options.port = undefined;
             api = new API(options);
-        }).toThrow();
+        }).not.toThrow();
+    });
+
+    it('should have default for options.port argument', function() {
+        options.port = undefined;
+        api = new API(options);
+        expect(api.port).toEqual(defaults.port);
+    });
+
+    it('should support setting options.port argument', function() {
+        options.port = '1337';
+        api = new API(options);
+        expect(api.port).toEqual('1337');
     });
 
     it('should require options.path argument', function() {
         expect(function() {
             options.path = undefined;
             api = new API(options);
-        }).toThrow();
+        }).not.toThrow();
+    });
+
+    it('should have default for options.path argument', function() {
+        options.path = undefined;
+        api = new API(options);
+        expect(api.path).toEqual(defaults.path);
+    });
+
+    it('should support setting options.path argument', function() {
+        options.path = '/api/v2';
+        api = new API(options);
+        expect(api.path).toEqual('/api/v2');
     });
 
     it('should not require options.proxy argument', function() {
