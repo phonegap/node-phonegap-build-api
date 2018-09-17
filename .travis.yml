@@ -5,4 +5,6 @@ notifications:
   email:
   - PhoneGapCI@adobe.com
 node_js:
-- '0.12'
+  - "6"
+  - "8"
+  - "10"

@@ -1,7 +1,7 @@
 {
     "name": "phonegap-build-api",
     "description": "REST Client for the PhoneGap Build API",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "homepage": "http://github.com/phonegap/node-phonegap-build-api",
     "repository": {
         "type": "git",
@@ -14,27 +14,32 @@
     "preferGlobal": false,
     "main": "./lib/client.js",
     "scripts": {
-        "test": "jasmine-node --color spec"
+        "test": "jasmine"
     },
     "engines": {
-        "node": ">=0.8.0"
+        "node": ">=6.0.0"
     },
     "dependencies": {
-        "request":"2.11.x"
+        "request": "^2.88.0"
     },
     "devDependencies": {
-        "jasmine-node": "1.14.5"
+        "jasmine": "^3.2.0"
     },
-    "optionalDependencies": {
-    },
-    "contributors": [{
-        "name": "Michael Brooks",
-        "email": "michael@michaelbrooks.ca",
-        "url": "http://michaelbrooks.ca/"
-    },
-    {
-        "name":" Fil Maj",
-        "email": "maj.fil@gmail.com",
-        "url": "http://filmaj.ca"
-    }]
+    "optionalDependencies": {},
+    "contributors": [
+        {
+            "name": "Michael Brooks",
+            "email": "michael@michaelbrooks.ca",
+            "url": "http://michaelbrooks.ca/"
+        },
+        {
+            "name": " Fil Maj",
+            "email": "maj.fil@gmail.com",
+            "url": "http://filmaj.ca"
+        },
+        {
+            "name": "Jesse MacFadyen",
+            "url": "https://github.com/purplecabbage"
+        }
+    ]
 }
