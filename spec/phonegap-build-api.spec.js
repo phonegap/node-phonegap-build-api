@@ -54,7 +54,7 @@ describe('phonegap-build-api', function() {
 
             describe('successful authentication', function() {
                 beforeEach(function() {
-                    spyOn(request, 'post').andCallFake(function(uri, opts, callback) {
+                    spyOn(request, 'post').and.callFake(function(uri, opts, callback) {
                         callback(null, { statusCode: 200 }, '{ "token": "abc123" }');
                     });
                 });
@@ -76,7 +76,7 @@ describe('phonegap-build-api', function() {
 
             describe('failed authentication request', function() {
                 beforeEach(function() {
-                    spyOn(request, 'post').andCallFake(function(uri, opts, callback) {
+                    spyOn(request, 'post').and.callFake(function(uri, opts, callback) {
                         callback(new Error('request timeout'), {}, '');
                     });
                 });
@@ -98,7 +98,7 @@ describe('phonegap-build-api', function() {
 
             describe('failed authentication response', function() {
                 beforeEach(function() {
-                    spyOn(request, 'post').andCallFake(function(uri, opts, callback) {
+                    spyOn(request, 'post').and.callFake(function(uri, opts, callback) {
                         callback(null, { statusCode: 404 }, 'page not found');
                     });
                 });
@@ -120,7 +120,7 @@ describe('phonegap-build-api', function() {
 
                 describe('when no error body provided', function() {
                     beforeEach(function() {
-                        request.post.andCallFake(function(uri, opts, callback) {
+                        request.post.and.callFake(function(uri, opts, callback) {
                             callback(null, { statusCode: 501 }, '');
                         });
                     });
@@ -137,7 +137,7 @@ describe('phonegap-build-api', function() {
 
             describe('failed authentication credentials', function() {
                 beforeEach(function() {
-                    spyOn(request, 'post').andCallFake(function(uri, opts, callback) {
+                    spyOn(request, 'post').and.callFake(function(uri, opts, callback) {
                         callback(null, { statusCode: 200 }, ' { "error": "incorrect password" }');
                     });
                 });
@@ -200,7 +200,7 @@ describe('phonegap-build-api', function() {
                 options.proxy = 'http://myproxy.com';
                 spyOn(request, 'post');
                 client.auth(options, function(e, api) {});
-                expect(request.post.mostRecentCall.args[1].proxy).toEqual('http://myproxy.com');
+                expect(request.post.calls.mostRecent().args[1].proxy).toEqual('http://myproxy.com');
             });
         });
     });

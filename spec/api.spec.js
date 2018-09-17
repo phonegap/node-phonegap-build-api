@@ -152,26 +152,26 @@ describe('new API', function() {
 
         describe('successful request', function() {
             beforeEach(function() {
-                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                spyOn(request, 'send').and.callFake(function(url, opts, callback) {
                     callback(null, {statusCode:200}, '{"say":"winter is coming"}');
                 });
             });
 
             it('should be a GET request', function() {
                 api('/apps', function(e, data) {});
-                expect(request.send.mostRecentCall.args[1].method).toEqual('GET');
+                expect(request.send.calls.mostRecent().args[1].method).toEqual('GET');
             });
 
             it('should be a fully-qualified url', function() {
                 var url = 'https://build.phonegap.com:443/api/v1/apps?auth_token='+options.token;
                 api('/apps', function(e, data) {});
-                expect(request.send.mostRecentCall.args[0]).toEqual(url);
+                expect(request.send.calls.mostRecent().args[0]).toEqual(url);
             });
 
             it('should be a trimmed url', function() {
                 var url = 'https://build.phonegap.com:443/api/v1/apps?auth_token='+options.token;
                 api('  ///apps//  ', function(e, data) {});
-                expect(request.send.mostRecentCall.args[0]).toEqual(url);
+                expect(request.send.calls.mostRecent().args[0]).toEqual(url);
             });
 
             it('should trigger callback without an error', function(done) {
@@ -207,8 +207,8 @@ describe('new API', function() {
                             }
                         }
                     };
-                    request.send.andReturn(requestSpy);
-                    requestSpy.form.andReturn(formSpy);
+                    request.send.and.returnValue(requestSpy);
+                    requestSpy.form.and.returnValue(formSpy);
                 });
 
                 it('should have content-type of "multipart/form-data"', function() {
@@ -219,7 +219,7 @@ describe('new API', function() {
                 it('should append each key of options.form', function() {
                     api('/apps', requestOptions, function(e, data) {});
                     expect(formSpy.append).toHaveBeenCalled();
-                    expect(formSpy.append.mostRecentCall.args[0]).toEqual('data');
+                    expect(formSpy.append.calls.mostRecent().args[0]).toEqual('data');
                 });
 
                 it('should handle "data" key as a JSON data type', function() {
@@ -237,7 +237,7 @@ describe('new API', function() {
                     requestOptions.form.icon = '/path/to/icon.png';
                     api('/apps', requestOptions, function(e, data) {});
 
-                    expect(formSpy.append.callCount).toEqual(2);
+                    expect(formSpy.append.calls.count()).toEqual(2);
                     expect(fs.createReadStream).toHaveBeenCalledWith(
                         '/path/to/icon.png'
                     );
@@ -249,14 +249,14 @@ describe('new API', function() {
                     options.proxy = 'http://myproxy.com';
                     api = new API(options);
                     api('/apps', function(e, data) {});
-                    expect(request.send.mostRecentCall.args[1].proxy).toEqual('http://myproxy.com');
+                    expect(request.send.calls.mostRecent().args[1].proxy).toEqual('http://myproxy.com');
                 });
             });
         });
 
         describe('failed api request', function() {
             beforeEach(function() {
-                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                spyOn(request, 'send').and.callFake(function(url, opts, callback) {
                     callback(new Error('timeout'), null, null);
                 });
             });
@@ -278,7 +278,7 @@ describe('new API', function() {
 
         describe('failed api response', function() {
             beforeEach(function() {
-                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                spyOn(request, 'send').and.callFake(function(url, opts, callback) {
                     callback(null, { statusCode: 404 }, 'page not found');
                 });
             });
@@ -300,7 +300,7 @@ describe('new API', function() {
 
             describe('when no error body provided', function() {
                 beforeEach(function() {
-                    request.send.andCallFake(function(uri, opts, callback) {
+                    request.send.and.callFake(function(uri, opts, callback) {
                         callback(null, { statusCode: 501 }, '');
                     });
                 });
@@ -317,7 +317,7 @@ describe('new API', function() {
 
         describe('failed api data', function() {
             beforeEach(function() {
-                spyOn(request, 'send').andCallFake(function(url, opts, callback) {
+                spyOn(request, 'send').and.callFake(function(url, opts, callback) {
                     callback(null, { statusCode: 200 }, '{"error":"invalid password"}');
                 });
             });
@@ -355,7 +355,7 @@ describe('new API', function() {
 
         it('should be a GET request', function() {
             api.get('/apps', function(e, data) {});
-            expect(api.request.mostRecentCall.args[1].method).toEqual('GET');
+            expect(api.request.calls.mostRecent().args[1].method).toEqual('GET');
         });
     });
 
@@ -376,7 +376,7 @@ describe('new API', function() {
 
         it('should be a POST request', function() {
             api.post('/apps', function(e, data) {});
-            expect(api.request.mostRecentCall.args[1].method).toEqual('POST');
+            expect(api.request.calls.mostRecent().args[1].method).toEqual('POST');
         });
     });
 
@@ -397,7 +397,7 @@ describe('new API', function() {
 
         it('should be a PUT request', function() {
             api.put('/apps', function(e, data) {});
-            expect(api.request.mostRecentCall.args[1].method).toEqual('PUT');
+            expect(api.request.calls.mostRecent().args[1].method).toEqual('PUT');
         });
     });
 
@@ -418,7 +418,7 @@ describe('new API', function() {
 
         it('should be a DELETE request', function() {
             api.del('/apps', function(e, data) {});
-            expect(api.request.mostRecentCall.args[1].method).toEqual('DELETE');
+            expect(api.request.calls.mostRecent().args[1].method).toEqual('DELETE');
         });
     });
 
