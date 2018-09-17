@@ -1,7 +1,7 @@
 {
     "name": "phonegap-build-api",
     "description": "REST Client for the PhoneGap Build API",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "homepage": "http://github.com/phonegap/node-phonegap-build-api",
     "repository": {
         "type": "git",
@@ -36,6 +36,10 @@
             "name": " Fil Maj",
             "email": "maj.fil@gmail.com",
             "url": "http://filmaj.ca"
+        },
+        {
+            "name": "Jesse MacFadyen",
+            "url": "https://github.com/purplecabbage"
         }
     ]
 }
