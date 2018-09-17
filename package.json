@@ -14,7 +14,7 @@
     "preferGlobal": false,
     "main": "./lib/client.js",
     "scripts": {
-        "test": "npx jasmine JASMINE_CONFIG_PATH=spec/jasmine.json"
+        "test": "jasmine"
     },
     "engines": {
         "node": ">=6.0.0"
